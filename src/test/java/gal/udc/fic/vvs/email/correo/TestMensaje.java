@@ -30,6 +30,7 @@ public class TestMensaje {
 		assertEquals(0, mensaje.obtenerNoLeidos());
 	}
 
+	// TODO cambiar por propiedad
 	@Test
 	public void testObtenerTamaño() {
 		assertEquals(texto.obtenerTamaño(), mensaje.obtenerTamaño());
