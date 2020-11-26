@@ -1,6 +1,8 @@
 package gal.udc.fic.vvs.email.correo;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -53,6 +55,82 @@ public class TestAdjunto {
 	public void testObtenerVisualizacionAdjuntoVacio() {
 		assertEquals(mensajeVacio.obtenerVisualizacion() + "\n\nAdxunto: " + archivoVacio.obtenerPreVisualizacion(),
 				adjuntoVacio.obtenerVisualizacion());
+	}
+
+	@Test
+	public void testEstablecerNoLeidoYObtenerNoLeidos() {
+		adjunto.establecerLeido(false);
+		assertEquals(1, adjunto.obtenerNoLeidos());
+	}
+
+	@Test
+	public void testEstablecerLeidoYObtenerNoLeidos() {
+		adjunto.establecerLeido(true);
+		assertEquals(0, adjunto.obtenerNoLeidos());
+	}
+
+	@Test
+	public void testObtenerIconoAdjunto() {
+		adjunto.establecerLeido(true);
+		assertEquals(Correo.ICONO_MENSAJE, adjunto.obtenerIcono());
+	}
+
+	@Test
+	public void testObtenerIconoNuevoMensaje() {
+		adjunto.establecerLeido(false);
+		assertEquals(Correo.ICONO_NUEVO_MENSAJE, adjunto.obtenerIcono());
+	}
+
+	@Test
+	public void testObtenerPreVisualizacion() {
+		assertTrue(adjunto.obtenerPreVisualizacion().endsWith("..."));
+	}
+
+	@Test
+	public void testBuscar() {
+		assertEquals(1, adjunto.buscar(texto.obtenerContenido()).size());
+	}
+
+	@Test
+	public void testBuscarSinResultado() {
+		assertEquals(0, adjunto.buscar("imagen").size());
+	}
+
+	@Test
+	public void testObtenerRuta() {
+		assertEquals(mensaje.obtenerRuta(), adjunto.obtenerRuta());
+	}
+
+	@Test(expected = OperacionInvalida.class)
+	public void testExplorar() throws OperacionInvalida {
+		adjunto.explorar();
+	}
+
+	@Test(expected = OperacionInvalida.class)
+	public void testAñadirCorreo() throws OperacionInvalida {
+		adjunto.añadir(null);
+	}
+
+	@Test(expected = OperacionInvalida.class)
+	public void testEliminarCorreo() throws OperacionInvalida {
+		adjunto.eliminar(null);
+	}
+
+	@Test(expected = OperacionInvalida.class)
+	public void testObtenerHijo() throws OperacionInvalida {
+		adjunto.obtenerHijo(0);
+	}
+
+	@Test
+	public void testObtenerPadre() throws OperacionInvalida {
+		assertNull(adjunto.obtenerPadre());
+	}
+
+	@Test
+	public void testEstablecerPadre() throws OperacionInvalida {
+		Carpeta nuevaCarpeta = new Carpeta("Nueva");
+		adjunto.establecerPadre(nuevaCarpeta);
+		assertEquals(nuevaCarpeta, adjunto.obtenerPadre());
 	}
 
 }
