@@ -2,7 +2,7 @@ package gal.udc.fic.vvs.email.archivo;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 public class TestArchivo {
@@ -10,8 +10,8 @@ public class TestArchivo {
 	public static Archivo imagen;
 	public static Archivo texto;
 
-	@BeforeClass
-	public static void setup() {
+	@Before
+	public void setUpTest() {
 		audio = new Audio("audio", "song");
 		imagen = new Imagen("imagen", "photo");
 		texto = new Texto("texto", "descripcion");
@@ -39,6 +39,12 @@ public class TestArchivo {
 	public void testObtenerMimeType() {
 		String expected = "image/png";
 		assertEquals(expected, imagen.obtenerMimeType());
+	}
+
+	@Test
+	public void testObtenerAudioMimeType() {
+		String expected = "audio/ogg";
+		assertEquals(expected, audio.obtenerMimeType());
 	}
 
 	@Test
