@@ -12,12 +12,12 @@ import gal.udc.fic.vvs.email.correo.Correo;
 import gal.udc.fic.vvs.email.correo.Mensaje;
 
 public class TestArchivadorSimple {
-	public static Archivador archivadorSimple;
-	public static Archivador archivadorPequeño;
-	public static Correo correo;
+	private static Archivador archivadorSimple;
+	private static Archivador archivadorPequeño;
+	private static Correo correo;
 
-	public final String NOMBRE = "nombre";
-	public final int SIZE = 100;
+	private final String NOMBRE = "nombre";
+	private final int SIZE = 100;
 
 	@Before
 	public void setUpTest() {

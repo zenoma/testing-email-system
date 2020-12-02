@@ -9,19 +9,19 @@ import gal.udc.fic.vvs.email.archivo.Texto;
 
 public class TestCabecera {
 
-	public final String NOMBRE = "nombre";
-	public static String VALOR = "valor";
+	private final String NOMBRE = "nombre";
+	private static String VALOR = "valor";
 
-	public final String NOMBRE_VACIO = "";
-	public static String VALOR_VACIO = "";
+	private final String NOMBRE_VACIO = "";
+	private static String VALOR_VACIO = "";
 
-	public static Cabecera cabecera;
-	public static Mensaje mensaje;
-	public static Texto texto;
+	private static Cabecera cabecera;
+	private static Mensaje mensaje;
+	private static Texto texto;
 
-	public static Cabecera cabeceraVacia;
-	public static Mensaje mensajeVacio;
-	public static Texto textoVacio;
+	private static Cabecera cabeceraVacia;
+	private static Mensaje mensajeVacio;
+	private static Texto textoVacio;
 
 	@Before
 	public void setUpTest() {

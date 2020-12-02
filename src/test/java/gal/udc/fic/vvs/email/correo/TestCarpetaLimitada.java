@@ -11,16 +11,16 @@ import org.junit.Test;
 import gal.udc.fic.vvs.email.archivo.Texto;
 
 public class TestCarpetaLimitada {
-	public static Carpeta carpetaImportantes;
-	public static Carpeta carpetaLeidos;
-	public static Carpeta carpetaVacia;
+	private static Carpeta carpetaImportantes;
+	private static Carpeta carpetaLeidos;
+	private static Carpeta carpetaVacia;
 
-	public static CarpetaLimitada carpetaImportantesLimitada;
-	public static CarpetaLimitada carpetaLeidosLimitada;
-	public static CarpetaLimitada carpetaVaciaLimitada;
+	private static CarpetaLimitada carpetaImportantesLimitada;
+	private static CarpetaLimitada carpetaLeidosLimitada;
+	private static CarpetaLimitada carpetaVaciaLimitada;
 
-	public static Correo correoNoLeido;
-	public static Correo correoLeido;
+	private static Correo correoNoLeido;
+	private static Correo correoLeido;
 
 	@Before
 	public void setUpTest() {

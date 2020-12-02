@@ -12,15 +12,15 @@ import gal.udc.fic.vvs.email.correo.Correo;
 import gal.udc.fic.vvs.email.correo.Mensaje;
 
 public class TestDelegado {
-	public static Delegado delegado;
-	public static Delegado delegadoPequeño;
-	public static Archivador archivadorSimple;
-	public static Archivador archivadorPequeño;
-	public static Archivador archivador;
-	public static Correo correo;
+	private static Delegado delegado;
+	private static Delegado delegadoPequeño;
+	private static Archivador archivadorSimple;
+	private static Archivador archivadorPequeño;
+	private static Archivador archivador;
+	private static Correo correo;
 
-	public final String NOMBRE = "nombre";
-	public final int SIZE = 100;
+	private final String NOMBRE = "nombre";
+	private final int SIZE = 100;
 
 	@Before
 	public void setUpTest() {

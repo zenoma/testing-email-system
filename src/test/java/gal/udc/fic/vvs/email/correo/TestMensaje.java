@@ -9,8 +9,8 @@ import org.junit.Test;
 import gal.udc.fic.vvs.email.archivo.Texto;
 
 public class TestMensaje {
-	public static Mensaje mensaje;
-	public static Texto texto;
+	private static Mensaje mensaje;
+	private static Texto texto;
 
 	@Before
 	public void setUpTest() {

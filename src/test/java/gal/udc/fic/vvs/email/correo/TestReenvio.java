@@ -8,19 +8,19 @@ import org.junit.Test;
 import gal.udc.fic.vvs.email.archivo.Texto;
 
 public class TestReenvio {
-	public static Reenvio reenvio;
-	public static Correo correoReenviado;
-	public static Mensaje mensajeNuevo;
-	public static Texto texto;
-	public static Texto textoNuevo;
-	public static Correo correo;
+	private static Reenvio reenvio;
+	private static Correo correoReenviado;
+	private static Mensaje mensajeNuevo;
+	private static Texto texto;
+	private static Texto textoNuevo;
+	private static Correo correo;
 
-	public static Reenvio reenvioVacio;
-	public static Correo correoReenviadoVacio;
-	public static Mensaje mensajeNuevoVacio;
-	public static Texto textoVacio;
-	public static Texto textoNuevoVacio;
-	public static Correo correoVacio;
+	private static Reenvio reenvioVacio;
+	private static Correo correoReenviadoVacio;
+	private static Mensaje mensajeNuevoVacio;
+	private static Texto textoVacio;
+	private static Texto textoNuevoVacio;
+	private static Correo correoVacio;
 
 	@Before
 	public void setUpTest() {

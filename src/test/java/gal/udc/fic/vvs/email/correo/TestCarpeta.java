@@ -12,11 +12,11 @@ import gal.udc.fic.vvs.email.archivo.Texto;
 
 public class TestCarpeta {
 
-	public static Carpeta carpetaImportantes;
-	public static Carpeta carpetaLeidos;
-	public static Carpeta carpetaVacia;
-	public static Correo correoNoLeido;
-	public static Correo correoLeido;
+	private static Carpeta carpetaImportantes;
+	private static Carpeta carpetaLeidos;
+	private static Carpeta carpetaVacia;
+	private static Correo correoNoLeido;
+	private static Correo correoLeido;
 
 	@Before
 	public void setUpTest() {

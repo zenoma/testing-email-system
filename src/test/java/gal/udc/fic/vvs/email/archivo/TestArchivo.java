@@ -6,9 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TestArchivo {
-	public static Archivo audio;
-	public static Archivo imagen;
-	public static Archivo texto;
+	private static Archivo audio;
+	private static Archivo imagen;
+	private static Archivo texto;
 
 	@Before
 	public void setUpTest() {

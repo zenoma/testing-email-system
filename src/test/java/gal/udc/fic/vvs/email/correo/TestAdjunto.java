@@ -12,14 +12,14 @@ import gal.udc.fic.vvs.email.archivo.Imagen;
 import gal.udc.fic.vvs.email.archivo.Texto;
 
 public class TestAdjunto {
-	public static Adjunto adjunto;
-	public static Mensaje mensaje;
-	public static Texto texto;
-	public static Archivo archivo;
-	public static Adjunto adjuntoVacio;
-	public static Mensaje mensajeVacio;
-	public static Texto textoVacio;
-	public static Archivo archivoVacio;
+	private static Adjunto adjunto;
+	private static Mensaje mensaje;
+	private static Texto texto;
+	private static Archivo archivo;
+	private static Adjunto adjuntoVacio;
+	private static Mensaje mensajeVacio;
+	private static Texto textoVacio;
+	private static Archivo archivoVacio;
 
 	@Before
 	public void setUpTest() {
