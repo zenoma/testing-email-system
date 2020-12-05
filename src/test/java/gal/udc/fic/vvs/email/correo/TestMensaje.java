@@ -3,68 +3,82 @@ package gal.udc.fic.vvs.email.correo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import gal.udc.fic.vvs.email.archivo.Texto;
+import net.jqwik.api.Arbitraries;
+import net.jqwik.api.Arbitrary;
+import net.jqwik.api.Combinators;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
+import net.jqwik.api.Provide;
 
 public class TestMensaje {
-	private static Mensaje mensaje;
-	private static Texto texto;
 
-	@Before
-	public void setUpTest() {
-		texto = new Texto("texto", "Contenido del texto");
-		mensaje = new Mensaje(texto);
+	@Provide
+	Arbitrary<Texto> textoProvider() {
+		Arbitrary<String> texts = Arbitraries.strings();
+		Arbitrary<String> contents = Arbitraries.strings();
+		return Combinators.combine(texts, contents).as((text, content) -> new Texto(text, content));
 	}
 
-	@Test
-	public void testEstablecerNoLeidoYObtenerNoLeidos() {
+	private static Texto texto;
+
+	@Provide
+	Arbitrary<Mensaje> mensajeProvider() {
+		texto = textoProvider().sample();
+		return Combinators.withBuilder(() -> new Mensaje(texto)).build();
+	}
+
+	@Provide
+	Arbitrary<Mensaje> mensajeProvider(Texto texto) {
+		return Combinators.withBuilder(() -> new Mensaje(texto)).build();
+	}
+
+	@Property
+	public void testEstablecerNoLeidoYObtenerNoLeidos(@ForAll("mensajeProvider") Mensaje mensaje) {
 		mensaje.establecerLeido(false);
 		assertEquals(1, mensaje.obtenerNoLeidos());
 	}
 
-	@Test
-	public void testEstablecerLeidoYObtenerNoLeidos() {
+	@Property
+	public void testEstablecerLeidoYObtenerNoLeidos(@ForAll("mensajeProvider") Mensaje mensaje) {
 		mensaje.establecerLeido(true);
 		assertEquals(0, mensaje.obtenerNoLeidos());
 	}
 
-	// TODO cambiar por propiedad
-	@Test
-	public void testObtenerTamaño() {
-		assertEquals(texto.obtenerTamaño(), mensaje.obtenerTamaño());
+	@Property
+	public void testObtenerTamaño(@ForAll("mensajeProvider") Mensaje mensaje) {
+		assertEquals(mensaje.obtenerVisualizacion().length(), mensaje.obtenerTamaño());
 	}
 
-	@Test
-	public void testObtenerIconoMensaje() {
+	@Property
+	public void testObtenerIconoMensaje(@ForAll("mensajeProvider") Mensaje mensaje) {
 		mensaje.establecerLeido(true);
 		assertEquals(Correo.ICONO_MENSAJE, mensaje.obtenerIcono());
 	}
 
-	@Test
-	public void testObtenerIconoNuevoMensaje() {
+	@Property
+	public void testObtenerIconoNuevoMensaje(@ForAll("mensajeProvider") Mensaje mensaje) {
 		mensaje.establecerLeido(false);
 		assertEquals(Correo.ICONO_NUEVO_MENSAJE, mensaje.obtenerIcono());
 	}
 
-	@Test
-	public void testObtenerPreVisualizacion() {
+	@Property
+	public void testObtenerPreVisualizacion(@ForAll("mensajeProvider") Mensaje mensaje) {
 		assertTrue(mensaje.obtenerPreVisualizacion().endsWith("..."));
 	}
 
-	@Test
-	public void testObtenerVisualizacion() {
+	@Property
+	public void testObtenerVisualizacion(@ForAll("mensajeProvider") Mensaje mensaje) {
 		assertEquals(texto.obtenerContenido(), mensaje.obtenerVisualizacion());
 	}
 
-	@Test
-	public void testBuscar() {
+	@Property
+	public void testBuscar(@ForAll("mensajeProvider") Mensaje mensaje) {
 		assertEquals(1, mensaje.buscar(texto.obtenerContenido()).size());
 	}
 
-	@Test
-	public void testBuscarSinResultado() {
+	@Property
+	public void testBuscarSinResultado(@ForAll("mensajeProvider") Mensaje mensaje) {
 		assertEquals(0, mensaje.buscar("imagen").size());
 	}
 
