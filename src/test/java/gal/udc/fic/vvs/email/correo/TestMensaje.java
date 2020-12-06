@@ -1,7 +1,8 @@
 package gal.udc.fic.vvs.email.correo;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+
+import org.assertj.core.api.Assertions;
 
 import gal.udc.fic.vvs.email.archivo.Texto;
 import net.jqwik.api.Arbitraries;
@@ -28,32 +29,27 @@ public class TestMensaje {
 		return Combinators.withBuilder(() -> new Mensaje(texto)).build();
 	}
 
-	@Provide
-	Arbitrary<Mensaje> mensajeProvider(Texto texto) {
-		return Combinators.withBuilder(() -> new Mensaje(texto)).build();
-	}
-
 	@Property
 	public void testEstablecerNoLeidoYObtenerNoLeidos(@ForAll("mensajeProvider") Mensaje mensaje) {
 		mensaje.establecerLeido(false);
-		assertEquals(1, mensaje.obtenerNoLeidos());
+		Assertions.assertThat(mensaje.obtenerNoLeidos()).isEqualTo(1);
 	}
 
 	@Property
 	public void testEstablecerLeidoYObtenerNoLeidos(@ForAll("mensajeProvider") Mensaje mensaje) {
 		mensaje.establecerLeido(true);
-		assertEquals(0, mensaje.obtenerNoLeidos());
+		Assertions.assertThat(mensaje.obtenerNoLeidos()).isZero();
 	}
 
 	@Property
 	public void testObtenerTamaño(@ForAll("mensajeProvider") Mensaje mensaje) {
-		assertEquals(mensaje.obtenerVisualizacion().length(), mensaje.obtenerTamaño());
+		Assertions.assertThat(mensaje.obtenerVisualizacion().length()).isEqualTo(mensaje.obtenerTamaño());
 	}
 
 	@Property
 	public void testObtenerIconoMensaje(@ForAll("mensajeProvider") Mensaje mensaje) {
 		mensaje.establecerLeido(true);
-		assertEquals(Correo.ICONO_MENSAJE, mensaje.obtenerIcono());
+		Assertions.assertThat(mensaje.obtenerIcono()).isEqualTo(Correo.ICONO_MENSAJE);
 	}
 
 	@Property
@@ -64,22 +60,22 @@ public class TestMensaje {
 
 	@Property
 	public void testObtenerPreVisualizacion(@ForAll("mensajeProvider") Mensaje mensaje) {
-		assertTrue(mensaje.obtenerPreVisualizacion().endsWith("..."));
+		Assertions.assertThat(mensaje.obtenerPreVisualizacion()).endsWith("...");
 	}
 
 	@Property
 	public void testObtenerVisualizacion(@ForAll("mensajeProvider") Mensaje mensaje) {
-		assertEquals(texto.obtenerContenido(), mensaje.obtenerVisualizacion());
+		Assertions.assertThat(texto.obtenerContenido()).isEqualTo(mensaje.obtenerVisualizacion());
 	}
 
 	@Property
 	public void testBuscar(@ForAll("mensajeProvider") Mensaje mensaje) {
-		assertEquals(1, mensaje.buscar(texto.obtenerContenido()).size());
+		Assertions.assertThat(mensaje.buscar(texto.obtenerContenido()).toArray()).isNotEmpty();
 	}
 
 	@Property
 	public void testBuscarSinResultado(@ForAll("mensajeProvider") Mensaje mensaje) {
-		assertEquals(0, mensaje.buscar("imagen").size());
+		Assertions.assertThat(mensaje.buscar("image").toArray()).isEmpty();
 	}
 
 }

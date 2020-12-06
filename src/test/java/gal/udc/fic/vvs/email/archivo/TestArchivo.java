@@ -1,7 +1,5 @@
 package gal.udc.fic.vvs.email.archivo;
 
-import static org.junit.Assert.assertEquals;
-
 import org.assertj.core.api.Assertions;
 
 import net.jqwik.api.Arbitraries;
@@ -45,14 +43,14 @@ public class TestArchivo {
 	public void testObtenerMimeType(@ForAll("strings") String nombre, @ForAll("strings") String contenido) {
 		imagen = new Imagen(nombre, contenido);
 		String expected = "image/png";
-		assertEquals(expected, imagen.obtenerMimeType());
+		Assertions.assertThat(imagen.obtenerMimeType()).isEqualTo(expected);
 	}
 
 	@Property
 	public void testObtenerAudioMimeType(@ForAll("strings") String nombre, @ForAll("strings") String contenido) {
 		audio = new Audio(nombre, contenido);
 		String expected = "audio/ogg";
-		assertEquals(expected, audio.obtenerMimeType());
+		Assertions.assertThat(audio.obtenerMimeType()).isEqualTo(expected);
 	}
 
 	@Property
