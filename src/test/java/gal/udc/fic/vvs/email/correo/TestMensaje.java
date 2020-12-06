@@ -8,6 +8,7 @@ import gal.udc.fic.vvs.email.archivo.Texto;
 import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.Combinators;
+import net.jqwik.api.Example;
 import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
 import net.jqwik.api.Provide;
@@ -16,8 +17,8 @@ public class TestMensaje {
 
 	@Provide
 	Arbitrary<Texto> textoProvider() {
-		Arbitrary<String> texts = Arbitraries.strings();
-		Arbitrary<String> contents = Arbitraries.strings();
+		Arbitrary<String> texts = Arbitraries.strings().alpha();
+		Arbitrary<String> contents = Arbitraries.strings().alpha();
 		return Combinators.combine(texts, contents).as((text, content) -> new Texto(text, content));
 	}
 
@@ -46,13 +47,13 @@ public class TestMensaje {
 		Assertions.assertThat(mensaje.obtenerVisualizacion().length()).isEqualTo(mensaje.obtenerTamaño());
 	}
 
-	@Property
+	@Example
 	public void testObtenerIconoMensaje(@ForAll("mensajeProvider") Mensaje mensaje) {
 		mensaje.establecerLeido(true);
 		Assertions.assertThat(mensaje.obtenerIcono()).isEqualTo(Correo.ICONO_MENSAJE);
 	}
 
-	@Property
+	@Example
 	public void testObtenerIconoNuevoMensaje(@ForAll("mensajeProvider") Mensaje mensaje) {
 		mensaje.establecerLeido(false);
 		assertEquals(Correo.ICONO_NUEVO_MENSAJE, mensaje.obtenerIcono());
@@ -73,7 +74,7 @@ public class TestMensaje {
 		Assertions.assertThat(mensaje.buscar(texto.obtenerContenido()).toArray()).isNotEmpty();
 	}
 
-	@Property
+	@Example
 	public void testBuscarSinResultado(@ForAll("mensajeProvider") Mensaje mensaje) {
 		Assertions.assertThat(mensaje.buscar("image").toArray()).isEmpty();
 	}

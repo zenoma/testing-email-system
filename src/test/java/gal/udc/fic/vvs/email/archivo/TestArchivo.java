@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions;
 
 import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
+import net.jqwik.api.Example;
 import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
 import net.jqwik.api.Provide;
@@ -39,14 +40,14 @@ public class TestArchivo {
 		Assertions.assertThat(imagen.obtenerTamaño()).isEqualTo(contenido.length());
 	}
 
-	@Property
+	@Example
 	public void testObtenerMimeType(@ForAll("strings") String nombre, @ForAll("strings") String contenido) {
 		imagen = new Imagen(nombre, contenido);
 		String expected = "image/png";
 		Assertions.assertThat(imagen.obtenerMimeType()).isEqualTo(expected);
 	}
 
-	@Property
+	@Example
 	public void testObtenerAudioMimeType(@ForAll("strings") String nombre, @ForAll("strings") String contenido) {
 		audio = new Audio(nombre, contenido);
 		String expected = "audio/ogg";

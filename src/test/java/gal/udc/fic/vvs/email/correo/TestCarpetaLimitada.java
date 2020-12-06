@@ -1,164 +1,222 @@
 package gal.udc.fic.vvs.email.correo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.assertj.core.api.Assertions;
 
 import gal.udc.fic.vvs.email.archivo.Texto;
+import net.jqwik.api.Arbitraries;
+import net.jqwik.api.Arbitrary;
+import net.jqwik.api.Combinators;
+import net.jqwik.api.Example;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
+import net.jqwik.api.Provide;
+import net.jqwik.api.lifecycle.BeforeExample;
+import net.jqwik.api.lifecycle.BeforeProperty;
 
 public class TestCarpetaLimitada {
 	private static Carpeta carpetaImportantes;
-	private static Carpeta carpetaLeidos;
 	private static Carpeta carpetaVacia;
 
 	private static CarpetaLimitada carpetaImportantesLimitada;
-	private static CarpetaLimitada carpetaLeidosLimitada;
 	private static CarpetaLimitada carpetaVaciaLimitada;
 
-	private static Correo correoNoLeido;
-	private static Correo correoLeido;
+	@Provide
+	Arbitrary<Mensaje> mensajeProvider() {
+		Texto texto = new Texto(Arbitraries.strings().sample(), Arbitraries.strings().alpha().sample());
+		return Combinators.withBuilder(() -> new Mensaje(texto)).build();
+	}
 
-	@Before
+	@Provide
+	Arbitrary<Carpeta> carpetaProvider() {
+		Arbitrary<String> nombre = Arbitraries.strings();
+		return Combinators.withBuilder(() -> {
+			Carpeta carpeta = new Carpeta(nombre.sample());
+			for (int i = 0; i < Arbitraries.integers().between(1, 5).sample(); i++) {
+				Mensaje msg = mensajeProvider().sample();
+				try {
+					msg.establecerLeido(Arbitraries.forType(Boolean.class).sample());
+					carpeta.añadir(msg);
+				} catch (OperacionInvalida e) {
+					e.printStackTrace();
+				}
+			}
+			return carpeta;
+		}).build();
+	}
+
+	@BeforeProperty
+	@BeforeExample
 	public void setUpTest() {
-		carpetaImportantes = new Carpeta("Importantes");
+		carpetaImportantes = new Carpeta(Arbitraries.strings().alpha().sample());
 		carpetaImportantesLimitada = new CarpetaLimitada(carpetaImportantes, 5);
-		carpetaLeidos = new Carpeta("Leidos");
-		carpetaLeidosLimitada = new CarpetaLimitada(carpetaLeidos, 5);
-		carpetaVacia = new Carpeta("Vacia");
+		carpetaVacia = new Carpeta(Arbitraries.strings().sample());
 		carpetaVaciaLimitada = new CarpetaLimitada(carpetaVacia, 0);
-
-		correoNoLeido = new Mensaje(new Texto("texto", "Contenido del texto"));
-		correoNoLeido.establecerLeido(false);
-		correoLeido = new Mensaje(new Texto("imagen", "Foto"));
-		correoLeido.establecerLeido(true);
 	}
 
-	@Test
-	public void testAñadirCorreoYBuscarCorreo() throws OperacionInvalida {
-		carpetaImportantesLimitada.añadir(correoNoLeido);
-		assertTrue(carpetaImportantesLimitada.buscar("texto").contains(correoNoLeido));
+	@Property
+	public void testAñadirCorreoYBuscarCorreo(@ForAll("mensajeProvider") Mensaje msg) throws OperacionInvalida {
+		boolean result = false;
+		carpetaImportantesLimitada.añadir(msg);
+
+		for (Object correo : carpetaImportantesLimitada.buscar(msg.obtenerVisualizacion())) {
+			if (correo instanceof Correo) {
+				result |= (((Correo) correo).obtenerVisualizacion() == msg.obtenerVisualizacion());
+			}
+		}
+		Assertions.assertThat(result).isTrue();
 	}
 
-	@Test
-	public void testAñadirCorreoYBuscarCorreoCarpetaVacia() throws OperacionInvalida {
-		carpetaVaciaLimitada.añadir(correoNoLeido);
-		assertTrue(carpetaVaciaLimitada.buscar("texto").contains(correoNoLeido));
+	@Property
+	public void testAñadirCorreoYBuscarCorreoCarpetaVacia(@ForAll("mensajeProvider") Mensaje msg)
+			throws OperacionInvalida {
+		boolean result = false;
+		carpetaVaciaLimitada.añadir(msg);
+
+		for (Object correo : carpetaVaciaLimitada.buscar(msg.obtenerVisualizacion())) {
+			if (correo instanceof Correo) {
+				result |= (((Correo) correo).obtenerVisualizacion() == msg.obtenerVisualizacion());
+			}
+		}
+		Assertions.assertThat(result).isTrue();
 	}
 
-	@Test
-	public void testMoverCorreoDeCarpeta() throws OperacionInvalida {
-		carpetaImportantesLimitada.añadir(correoNoLeido);
-		carpetaLeidosLimitada.añadir(correoNoLeido);
-		assertTrue(carpetaLeidosLimitada.buscar("texto").contains(correoNoLeido));
+	@Property
+	public void testMoverCorreoDeCarpeta(@ForAll("mensajeProvider") Mensaje msg) throws OperacionInvalida {
+		boolean result = false;
+		carpetaImportantesLimitada.añadir(msg);
+		for (Object correo : carpetaImportantesLimitada.buscar(msg.obtenerVisualizacion())) {
+			if (correo instanceof Correo) {
+				result |= (((Correo) correo).obtenerVisualizacion() == msg.obtenerVisualizacion());
+			}
+		}
+
+		if (result) {
+			carpetaVaciaLimitada.añadir(msg);
+			for (Object correo : carpetaVaciaLimitada.buscar(msg.obtenerVisualizacion())) {
+				if (correo instanceof Correo) {
+					result |= (((Correo) correo).obtenerVisualizacion() == msg.obtenerVisualizacion());
+				}
+			}
+		}
+		Assertions.assertThat(result).isTrue();
 	}
 
-	@Test
-	public void testEliminarCorreoDeCarpeta() throws OperacionInvalida {
-		carpetaImportantesLimitada.añadir(correoNoLeido);
-		carpetaImportantesLimitada.eliminar(correoNoLeido);
-		assertNull(correoNoLeido.obtenerPadre());
+	@Property
+	public void testEliminarCorreoDeCarpeta(@ForAll("mensajeProvider") Mensaje msg) throws OperacionInvalida {
+		boolean result = false;
+		carpetaImportantesLimitada.añadir(msg);
+		carpetaImportantesLimitada.eliminar(msg);
+		for (Object correo : carpetaImportantesLimitada.buscar(msg.obtenerVisualizacion())) {
+			if (correo instanceof Correo) {
+				result |= (((Correo) correo).obtenerVisualizacion() == msg.obtenerVisualizacion());
+			}
+		}
+		Assertions.assertThat(result).isFalse();
 	}
 
-	@Test
-	public void testEliminarCorreoNoExistente() throws OperacionInvalida {
-		carpetaImportantesLimitada.eliminar(correoNoLeido);
-		assertNull(correoNoLeido.obtenerPadre());
+	@Property
+	public void testExplorarCarpetaVacia(@ForAll("mensajeProvider") Mensaje msg) throws OperacionInvalida {
+		boolean result = false;
+		for (Object correo : carpetaVacia.buscar(msg.obtenerVisualizacion())) {
+			if (correo instanceof Correo) {
+				result |= (((Correo) correo).obtenerVisualizacion() == msg.obtenerVisualizacion());
+			}
+		}
+		Assertions.assertThat(result).isFalse();
 	}
 
-	@Test
-	public void testExplorarCarpetaVacia() throws OperacionInvalida {
-		assertEquals(0, carpetaVaciaLimitada.explorar().size());
-	}
-
-	@Test
+	@Example
 	public void testExplorarCarpetaConElementos() throws OperacionInvalida {
-		carpetaImportantesLimitada.añadir(correoNoLeido);
-		carpetaImportantesLimitada.añadir(correoLeido);
-		assertEquals(2, carpetaImportantesLimitada.explorar().size());
+		Mensaje mensaje = new Mensaje(new Texto("nombre", "contenido"));
+		Mensaje mensaje2 = new Mensaje(new Texto("nombre2", "contenido"));
+		carpetaImportantesLimitada.añadir(mensaje);
+		carpetaImportantesLimitada.añadir(mensaje2);
+		Assertions.assertThat(carpetaImportantesLimitada.buscar("contenido").toArray()).hasSize(2);
 	}
 
-	@Test
-	public void testObtenerNoLeidos() throws OperacionInvalida {
-		carpetaImportantesLimitada.añadir(correoNoLeido);
-		carpetaImportantesLimitada.añadir(correoLeido);
-		assertEquals(1, carpetaImportantesLimitada.obtenerNoLeidos());
-
+	@Example
+	public void testObtenerNoLeidos(@ForAll("mensajeProvider") Mensaje msg, @ForAll("mensajeProvider") Mensaje msg2)
+			throws OperacionInvalida {
+		carpetaImportantesLimitada.añadir(msg);
+		msg2.establecerLeido(true);
+		carpetaImportantesLimitada.añadir(msg2);
+		Assertions.assertThat(carpetaImportantesLimitada.obtenerNoLeidos()).isEqualTo(1);
 	}
 
-	@Test
-	public void testObtenerTamaño() throws OperacionInvalida {
-		carpetaImportantesLimitada.añadir(correoNoLeido);
-		carpetaImportantesLimitada.añadir(correoLeido);
-		assertNotEquals(0, carpetaImportantesLimitada.obtenerTamaño());
-
+	@Example
+	public void testObtenerTamaño(@ForAll("mensajeProvider") Mensaje msg, @ForAll("mensajeProvider") Mensaje msg2)
+			throws OperacionInvalida {
+		carpetaImportantesLimitada.añadir(msg);
+		carpetaImportantesLimitada.añadir(msg2);
+		Assertions.assertThat(carpetaImportantesLimitada.obtenerTamaño()).isNotZero();
 	}
 
-	@Test
+	@Example
 	public void testObtenerTamañoCarpetaVacia() throws OperacionInvalida {
-		assertEquals(0, carpetaVaciaLimitada.obtenerTamaño());
+		Assertions.assertThat(carpetaImportantesLimitada.obtenerTamaño()).isZero();
 	}
 
-	@Test
+	@Example
 	public void testObtenerIcono() throws OperacionInvalida {
-		assertEquals(Correo.ICONO_CARPETA, carpetaImportantesLimitada.obtenerIcono());
+		Assertions.assertThat(carpetaImportantesLimitada.obtenerIcono()).isEqualTo(Correo.ICONO_CARPETA);
 	}
 
-	@Test
-	public void testObtenerVisualización() throws OperacionInvalida {
-		carpetaImportantesLimitada.añadir(correoNoLeido);
-		carpetaImportantesLimitada.añadir(correoLeido);
-		String expected = "Importantes (" + carpetaImportantesLimitada.obtenerNoLeidos() + ")";
-		assertEquals(expected, carpetaImportantesLimitada.obtenerVisualizacion());
+	@Example
+	public void testObtenerVisualización(@ForAll("mensajeProvider") Mensaje msg,
+			@ForAll("mensajeProvider") Mensaje msg2) throws OperacionInvalida {
+		Carpeta carpeta = new Carpeta("Importantes");
+		carpeta.añadir(msg);
+		carpeta.añadir(msg2);
+		String expected = "Importantes (" + carpeta.obtenerNoLeidos() + ")";
+		Assertions.assertThat(carpeta.obtenerVisualizacion()).isEqualTo(expected);
 	}
 
-	@Test
-	public void testObtenerPreVisualización() throws OperacionInvalida {
-		carpetaImportantesLimitada.añadir(correoNoLeido);
-		carpetaImportantesLimitada.añadir(correoLeido);
-		assertEquals(carpetaImportantesLimitada.obtenerPreVisualizacion(),
-				carpetaImportantesLimitada.obtenerVisualizacion());
+	@Property
+	public void testObtenerPreVisualización(@ForAll("mensajeProvider") Mensaje msg) throws OperacionInvalida {
+		carpetaImportantesLimitada.añadir(msg);
+		Assertions.assertThat(carpetaImportantesLimitada.obtenerPreVisualizacion())
+				.isEqualTo(carpetaImportantesLimitada.obtenerVisualizacion());
 	}
 
-	@Test
+	@Property
 	public void testObtenerVisualizaciónCarpetaVacia() throws OperacionInvalida {
-		assertEquals("Vacia", carpetaVaciaLimitada.obtenerVisualizacion());
+		Assertions.assertThat(carpetaImportantesLimitada.obtenerPreVisualizacion())
+				.isEqualTo(carpetaImportantesLimitada.obtenerVisualizacion());
 	}
 
-	@Test
-	public void testEstablecerCarpetaLeida() throws OperacionInvalida {
-		carpetaLeidosLimitada.añadir(correoNoLeido);
-		carpetaLeidosLimitada.establecerLeido(true);
-		assertEquals(0, carpetaLeidosLimitada.obtenerNoLeidos());
+	@Property
+	public void testEstablecerCarpetaLeida(@ForAll("carpetaProvider") Carpeta carpeta) throws OperacionInvalida {
+		carpeta.establecerLeido(true);
+		Assertions.assertThat(carpeta.obtenerNoLeidos()).isZero();
 	}
 
-	@Test
-	public void testObtenerRuta() throws OperacionInvalida {
-		assertEquals("Leidos", carpetaLeidosLimitada.obtenerRuta());
+	@Property
+	public void testObtenerRuta(@ForAll("carpetaProvider") Carpeta carpeta) throws OperacionInvalida {
+		Assertions.assertThat(carpeta.obtenerRuta()).isEqualTo(carpeta.obtenerVisualizacion());
 	}
 
-	@Test
-	public void testObtenerHijo() throws OperacionInvalida {
-		carpetaLeidosLimitada.añadir(correoNoLeido);
-		assertEquals(correoNoLeido, carpetaLeidosLimitada.obtenerHijo(0));
-	}
-
-	@Test(expected = ArrayIndexOutOfBoundsException.class)
+	@Example
 	public void testObtenerHijoCarpetaVacia() throws OperacionInvalida {
-		carpetaLeidosLimitada.obtenerHijo(0);
+		Assertions.assertThatThrownBy(() -> {
+			carpetaImportantesLimitada.obtenerHijo(0);
+		}).isInstanceOf(ArrayIndexOutOfBoundsException.class);
 	}
 
-	@Test
-	public void testObtenerPadre() throws OperacionInvalida {
-		assertNull(carpetaLeidosLimitada.obtenerPadre());
+	@Property
+	public void testObtenerPadre(@ForAll("carpetaProvider") Carpeta carpeta) throws OperacionInvalida {
+		Assertions.assertThat(carpeta.obtenerPadre()).isNull();
 	}
 
-	@Test
-	public void testCambiarPadreYObtenerPadre() throws OperacionInvalida {
-		carpetaVaciaLimitada.establecerPadre(carpetaImportantesLimitada);
-		assertEquals(carpetaImportantesLimitada, carpetaVaciaLimitada.obtenerPadre());
+	@Property
+	public void testObtenerHijo(@ForAll("carpetaProvider") Carpeta carpeta) throws OperacionInvalida {
+		Assertions.assertThat(carpeta.obtenerHijo(0)).isNotNull();
 	}
+
+	@Property
+	public void testCambiarPadreYObtenerPadre(@ForAll("carpetaProvider") Carpeta carpeta) throws OperacionInvalida {
+
+		carpeta.establecerPadre(carpetaImportantesLimitada);
+		Assertions.assertThat(carpeta.obtenerPadre()).isEqualTo(carpetaImportantesLimitada);
+	}
+
 }

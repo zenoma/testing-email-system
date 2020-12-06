@@ -6,6 +6,7 @@ import gal.udc.fic.vvs.email.archivo.Texto;
 import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.Combinators;
+import net.jqwik.api.Example;
 import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
 import net.jqwik.api.Provide;
@@ -15,20 +16,17 @@ public class TestReenvio {
 	private static Correo correoReenviado;
 	private static Mensaje mensajeNuevo;
 	private static Texto texto;
-	private static Texto textoNuevo;
-	private static Correo correo;
 
 	private static Reenvio reenvioVacio;
 	private static Correo correoReenviadoVacio;
 	private static Mensaje mensajeNuevoVacio;
 	private static Texto textoVacio;
 	private static Texto textoNuevoVacio;
-	private static Correo correoVacio;
 
 	@Provide
 	Arbitrary<Texto> textoProvider() {
-		Arbitrary<String> texts = Arbitraries.strings();
-		Arbitrary<String> contents = Arbitraries.strings();
+		Arbitrary<String> texts = Arbitraries.strings().alpha();
+		Arbitrary<String> contents = Arbitraries.strings().alpha();
 		return Combinators.combine(texts, contents).as((text, content) -> new Texto(text, content));
 	}
 
@@ -59,7 +57,7 @@ public class TestReenvio {
 
 	}
 
-	@Property
+	@Example
 	public void testObtenerTamañoReenvioVacio() {
 		textoVacio = new Texto("", "");
 		textoNuevoVacio = new Texto("", "");
@@ -70,7 +68,7 @@ public class TestReenvio {
 				.isEqualTo(reenvioVacio.obtenerTamaño());
 	}
 
-	@Property
+	@Example
 	public void testObtenerVisualizacionReenvioVacio() {
 		textoVacio = new Texto("", "");
 		textoNuevoVacio = new Texto("", "");
