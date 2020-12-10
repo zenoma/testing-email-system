@@ -1,56 +1,62 @@
 package gal.udc.fic.vvs.email.archivo;
 
-import static org.junit.Assert.assertEquals;
+import org.assertj.core.api.Assertions;
 
-import org.junit.Before;
-import org.junit.Test;
+import net.jqwik.api.Arbitraries;
+import net.jqwik.api.Arbitrary;
+import net.jqwik.api.Example;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
+import net.jqwik.api.Provide;
 
 public class TestArchivo {
-	public static Archivo audio;
-	public static Archivo imagen;
-	public static Archivo texto;
 
-	@Before
-	public void setUpTest() {
-		audio = new Audio("audio", "song");
-		imagen = new Imagen("imagen", "photo");
-		texto = new Texto("texto", "descripcion");
+	private Audio audio;
+
+	private Imagen imagen;
+
+	private Texto texto;
+
+	@Provide
+	Arbitrary<String> strings() {
+		return Arbitraries.strings().alpha();
 	}
 
-	@Test
-	public void testObtenerNombre() {
-		String expected = "audio";
-		assertEquals(expected, audio.obtenerNombre());
+	@Property
+	public void testObtenerNombre(@ForAll("strings") String nombre, @ForAll("strings") String contenido) {
+		audio = new Audio(nombre, contenido);
+		Assertions.assertThat(audio.obtenerNombre()).isEqualTo(nombre);
 	}
 
-	@Test
-	public void testObtenerContenido() {
-		String expected = "photo";
-		assertEquals(expected, imagen.obtenerContenido());
+	@Property
+	public void testObtenerContenido(@ForAll("strings") String nombre, @ForAll("strings") String contenido) {
+		imagen = new Imagen(nombre, contenido);
+		Assertions.assertThat(imagen.obtenerContenido()).isEqualTo(contenido);
 	}
 
-	@Test
-	public void testObtenerTamaño() {
-		String expected = "photo";
-		assertEquals(expected.length(), imagen.obtenerTamaño());
+	@Property
+	public void testObtenerTamaño(@ForAll("strings") String nombre, @ForAll("strings") String contenido) {
+		imagen = new Imagen(nombre, contenido);
+		Assertions.assertThat(imagen.obtenerTamaño()).isEqualTo(contenido.length());
 	}
 
-	@Test
-	public void testObtenerMimeType() {
+	@Example
+	public void testObtenerMimeType(@ForAll("strings") String nombre, @ForAll("strings") String contenido) {
+		imagen = new Imagen(nombre, contenido);
 		String expected = "image/png";
-		assertEquals(expected, imagen.obtenerMimeType());
+		Assertions.assertThat(imagen.obtenerMimeType()).isEqualTo(expected);
 	}
 
-	@Test
-	public void testObtenerAudioMimeType() {
+	@Example
+	public void testObtenerAudioMimeType(@ForAll("strings") String nombre, @ForAll("strings") String contenido) {
+		audio = new Audio(nombre, contenido);
 		String expected = "audio/ogg";
-		assertEquals(expected, audio.obtenerMimeType());
+		Assertions.assertThat(audio.obtenerMimeType()).isEqualTo(expected);
 	}
 
-	@Test
-	public void testObtenerPreVisualizacion() {
-		String expected = texto.obtenerNombre() + "(" + texto.obtenerTamaño() + " bytes, " + texto.obtenerMimeType()
-				+ ")";
-		assertEquals(expected, texto.obtenerPreVisualizacion());
+	@Property
+	public void testObtenerPreVisualizacion(@ForAll("strings") String nombre, @ForAll("strings") String contenido) {
+		texto = new Texto(nombre, contenido);
+		Assertions.assertThat(texto.obtenerPreVisualizacion().length()).isGreaterThan(texto.obtenerNombre().length());
 	}
 }

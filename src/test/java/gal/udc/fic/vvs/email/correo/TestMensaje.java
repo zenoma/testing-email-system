@@ -1,71 +1,82 @@
 package gal.udc.fic.vvs.email.correo;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.assertj.core.api.Assertions;
 
 import gal.udc.fic.vvs.email.archivo.Texto;
+import net.jqwik.api.Arbitraries;
+import net.jqwik.api.Arbitrary;
+import net.jqwik.api.Combinators;
+import net.jqwik.api.Example;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
+import net.jqwik.api.Provide;
 
 public class TestMensaje {
-	public static Mensaje mensaje;
-	public static Texto texto;
 
-	@Before
-	public void setUpTest() {
-		texto = new Texto("texto", "Contenido del texto");
-		mensaje = new Mensaje(texto);
+	@Provide
+	Arbitrary<Texto> textoProvider() {
+		Arbitrary<String> texts = Arbitraries.strings().alpha();
+		Arbitrary<String> contents = Arbitraries.strings().alpha();
+		return Combinators.combine(texts, contents).as((text, content) -> new Texto(text, content));
 	}
 
-	@Test
-	public void testEstablecerNoLeidoYObtenerNoLeidos() {
+	private static Texto texto;
+
+	@Provide
+	Arbitrary<Mensaje> mensajeProvider() {
+		texto = textoProvider().sample();
+		return Combinators.withBuilder(() -> new Mensaje(texto)).build();
+	}
+
+	@Property
+	public void testEstablecerNoLeidoYObtenerNoLeidos(@ForAll("mensajeProvider") Mensaje mensaje) {
 		mensaje.establecerLeido(false);
-		assertEquals(1, mensaje.obtenerNoLeidos());
+		Assertions.assertThat(mensaje.obtenerNoLeidos()).isEqualTo(1);
 	}
 
-	@Test
-	public void testEstablecerLeidoYObtenerNoLeidos() {
+	@Property
+	public void testEstablecerLeidoYObtenerNoLeidos(@ForAll("mensajeProvider") Mensaje mensaje) {
 		mensaje.establecerLeido(true);
-		assertEquals(0, mensaje.obtenerNoLeidos());
+		Assertions.assertThat(mensaje.obtenerNoLeidos()).isZero();
 	}
 
-	// TODO cambiar por propiedad
-	@Test
-	public void testObtenerTamaño() {
-		assertEquals(texto.obtenerTamaño(), mensaje.obtenerTamaño());
+	@Property
+	public void testObtenerTamaño(@ForAll("mensajeProvider") Mensaje mensaje) {
+		Assertions.assertThat(mensaje.obtenerVisualizacion().length()).isEqualTo(mensaje.obtenerTamaño());
 	}
 
-	@Test
-	public void testObtenerIconoMensaje() {
+	@Example
+	public void testObtenerIconoMensaje(@ForAll("mensajeProvider") Mensaje mensaje) {
 		mensaje.establecerLeido(true);
-		assertEquals(Correo.ICONO_MENSAJE, mensaje.obtenerIcono());
+		Assertions.assertThat(mensaje.obtenerIcono()).isEqualTo(Correo.ICONO_MENSAJE);
 	}
 
-	@Test
-	public void testObtenerIconoNuevoMensaje() {
+	@Example
+	public void testObtenerIconoNuevoMensaje(@ForAll("mensajeProvider") Mensaje mensaje) {
 		mensaje.establecerLeido(false);
 		assertEquals(Correo.ICONO_NUEVO_MENSAJE, mensaje.obtenerIcono());
 	}
 
-	@Test
-	public void testObtenerPreVisualizacion() {
-		assertTrue(mensaje.obtenerPreVisualizacion().endsWith("..."));
+	@Property
+	public void testObtenerPreVisualizacion(@ForAll("mensajeProvider") Mensaje mensaje) {
+		Assertions.assertThat(mensaje.obtenerPreVisualizacion()).endsWith("...");
 	}
 
-	@Test
-	public void testObtenerVisualizacion() {
-		assertEquals(texto.obtenerContenido(), mensaje.obtenerVisualizacion());
+	@Property
+	public void testObtenerVisualizacion(@ForAll("mensajeProvider") Mensaje mensaje) {
+		Assertions.assertThat(texto.obtenerContenido()).isEqualTo(mensaje.obtenerVisualizacion());
 	}
 
-	@Test
-	public void testBuscar() {
-		assertEquals(1, mensaje.buscar(texto.obtenerContenido()).size());
+	@Property
+	public void testBuscar(@ForAll("mensajeProvider") Mensaje mensaje) {
+		Assertions.assertThat(mensaje.buscar(texto.obtenerContenido()).toArray()).isNotEmpty();
 	}
 
-	@Test
-	public void testBuscarSinResultado() {
-		assertEquals(0, mensaje.buscar("imagen").size());
+	@Example
+	public void testBuscarSinResultado(@ForAll("mensajeProvider") Mensaje mensaje) {
+		Assertions.assertThat(mensaje.buscar("image").toArray()).isEmpty();
 	}
 
 }

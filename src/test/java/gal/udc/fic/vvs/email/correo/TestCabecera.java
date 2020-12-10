@@ -1,58 +1,75 @@
 package gal.udc.fic.vvs.email.correo;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.assertj.core.api.Assertions;
 
 import gal.udc.fic.vvs.email.archivo.Texto;
+import net.jqwik.api.Arbitraries;
+import net.jqwik.api.Arbitrary;
+import net.jqwik.api.Combinators;
+import net.jqwik.api.Example;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
+import net.jqwik.api.Provide;
+import net.jqwik.api.lifecycle.BeforeExample;
+import net.jqwik.api.lifecycle.BeforeProperty;
 
 public class TestCabecera {
 
-	public final String NOMBRE = "nombre";
-	public static String VALOR = "valor";
+	private final String NOMBRE_VACIO = "";
+	private static String VALOR_VACIO = "";
 
-	public final String NOMBRE_VACIO = "";
-	public static String VALOR_VACIO = "";
+	private static Cabecera cabecera;
 
-	public static Cabecera cabecera;
-	public static Mensaje mensaje;
-	public static Texto texto;
+	private static Cabecera cabeceraVacia;
+	private static Mensaje mensajeVacio;
+	private static Texto textoVacio;
 
-	public static Cabecera cabeceraVacia;
-	public static Mensaje mensajeVacio;
-	public static Texto textoVacio;
+	@Provide
+	Arbitrary<String> strings() {
+		return Arbitraries.strings().alpha();
+	}
 
-	@Before
+	@Provide
+	Arbitrary<Mensaje> mensajeProvider() {
+		Texto texto = new Texto(Arbitraries.strings().sample(), Arbitraries.strings().alpha().sample());
+		return Combinators.withBuilder(() -> new Mensaje(texto)).build();
+	}
+
+	@BeforeProperty
+	@BeforeExample
 	public void setUpTest() {
-		texto = new Texto("texto", "Contenido del texto");
-		mensaje = new Mensaje(texto);
-		cabecera = new Cabecera(mensaje, NOMBRE, VALOR);
-
 		textoVacio = new Texto("", "");
-		mensajeVacio = new Mensaje(texto);
-		cabeceraVacia = new Cabecera(mensaje, NOMBRE_VACIO, VALOR_VACIO);
+		mensajeVacio = new Mensaje(textoVacio);
+		cabeceraVacia = new Cabecera(mensajeVacio, NOMBRE_VACIO, VALOR_VACIO);
 	}
 
-	@Test
-	public void testObtenerTamaño() {
-		assertEquals(mensaje.obtenerTamaño() + NOMBRE.length() + VALOR.length(), cabecera.obtenerTamaño());
+	@Property
+	public void testObtenerTamaño(@ForAll("mensajeProvider") Mensaje msg, @ForAll("strings") String nombre,
+			@ForAll("strings") String valor) {
+		cabecera = new Cabecera(msg, nombre, valor);
+		Assertions.assertThat(msg.obtenerTamaño() + nombre.length() + valor.length())
+				.isEqualTo(cabecera.obtenerTamaño());
 	}
 
-	@Test
-	public void testObtenerVisualizacion() {
-		assertEquals("nombre: valor\n" + "Contenido del texto", cabecera.obtenerVisualizacion());
+	@Property
+	public void testObtenerVisualizacion(@ForAll("mensajeProvider") Mensaje msg, @ForAll("strings") String nombre,
+			@ForAll("strings") String valor) {
+		cabecera = new Cabecera(msg, nombre, valor);
+
+		Assertions.assertThat(nombre + ": " + valor + "\n" + msg.obtenerVisualizacion())
+				.isEqualTo(cabecera.obtenerVisualizacion());
 	}
 
-	@Test
+	@Example
 	public void testObtenerTamañoCabeceraVacio() {
-		assertEquals(mensajeVacio.obtenerTamaño() + NOMBRE_VACIO.length() + VALOR_VACIO.length(),
-				cabeceraVacia.obtenerTamaño());
+
+		Assertions.assertThat(mensajeVacio.obtenerTamaño() + NOMBRE_VACIO.length() + VALOR_VACIO.length())
+				.isEqualTo(cabeceraVacia.obtenerTamaño());
 	}
 
-	@Test
+	@Example
 	public void testObtenerVisualizacionCabeceraVacio() {
-		assertEquals(": \n" + "Contenido del texto", cabeceraVacia.obtenerVisualizacion());
+		Assertions.assertThat(": \n").isEqualTo(cabeceraVacia.obtenerVisualizacion());
 	}
 
 }

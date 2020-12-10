@@ -1,66 +1,84 @@
 package gal.udc.fic.vvs.email.correo;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.assertj.core.api.Assertions;
 
 import gal.udc.fic.vvs.email.archivo.Texto;
+import net.jqwik.api.Arbitraries;
+import net.jqwik.api.Arbitrary;
+import net.jqwik.api.Combinators;
+import net.jqwik.api.Example;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
+import net.jqwik.api.Provide;
 
 public class TestReenvio {
-	public static Reenvio reenvio;
-	public static Correo correoReenviado;
-	public static Mensaje mensajeNuevo;
-	public static Texto texto;
-	public static Texto textoNuevo;
-	public static Correo correo;
+	private static Reenvio reenvio;
+	private static Correo correoReenviado;
+	private static Mensaje mensajeNuevo;
+	private static Texto texto;
 
-	public static Reenvio reenvioVacio;
-	public static Correo correoReenviadoVacio;
-	public static Mensaje mensajeNuevoVacio;
-	public static Texto textoVacio;
-	public static Texto textoNuevoVacio;
-	public static Correo correoVacio;
+	private static Reenvio reenvioVacio;
+	private static Correo correoReenviadoVacio;
+	private static Mensaje mensajeNuevoVacio;
+	private static Texto textoVacio;
+	private static Texto textoNuevoVacio;
 
-	@Before
-	public void setUpTest() {
-		texto = new Texto("texto", "Contenido del texto");
-		textoNuevo = new Texto("texto", "Reenvio el siguiente mensaje");
-		mensajeNuevo = new Mensaje(textoNuevo);
+	@Provide
+	Arbitrary<Texto> textoProvider() {
+		Arbitrary<String> texts = Arbitraries.strings().alpha();
+		Arbitrary<String> contents = Arbitraries.strings().alpha();
+		return Combinators.combine(texts, contents).as((text, content) -> new Texto(text, content));
+	}
+
+	@Provide
+	Arbitrary<Mensaje> mensajeProvider() {
+		texto = textoProvider().sample();
+		return Combinators.withBuilder(() -> new Mensaje(texto)).build();
+	}
+
+	@Property
+	public void testObtenerTamaño(@ForAll("textoProvider") Texto texto, @ForAll("textoProvider") Texto nuevoTexto) {
 		correoReenviado = new Mensaje(texto);
+		mensajeNuevo = new Mensaje(nuevoTexto);
 		reenvio = new Reenvio(mensajeNuevo, correoReenviado);
+		Assertions.assertThat(texto.obtenerTamaño() + nuevoTexto.obtenerTamaño()).isEqualTo(reenvio.obtenerTamaño());
+	}
 
+	@Property
+	public void testObtenerVisualizacion(@ForAll("textoProvider") Texto texto,
+			@ForAll("textoProvider") Texto nuevoTexto) {
+		correoReenviado = new Mensaje(texto);
+		mensajeNuevo = new Mensaje(nuevoTexto);
+		reenvio = new Reenvio(mensajeNuevo, correoReenviado);
+		Assertions
+				.assertThat(mensajeNuevo.obtenerVisualizacion() + "\n\n---- Correo reenviado ----\n\n"
+						+ correoReenviado.obtenerVisualizacion() + "\n---- Fin correo reenviado ----")
+				.isEqualTo(reenvio.obtenerVisualizacion());
+
+	}
+
+	@Example
+	public void testObtenerTamañoReenvioVacio() {
 		textoVacio = new Texto("", "");
 		textoNuevoVacio = new Texto("", "");
 		mensajeNuevoVacio = new Mensaje(textoNuevoVacio);
 		correoReenviadoVacio = new Mensaje(textoVacio);
 		reenvioVacio = new Reenvio(mensajeNuevoVacio, correoReenviadoVacio);
+		Assertions.assertThat(textoVacio.obtenerTamaño() + textoNuevoVacio.obtenerTamaño())
+				.isEqualTo(reenvioVacio.obtenerTamaño());
 	}
 
-	@Test
-	public void testObtenerTamaño() {
-		assertEquals(texto.obtenerTamaño() + textoNuevo.obtenerTamaño(), reenvio.obtenerTamaño());
-	}
-
-	@Test
-	public void testObtenerVisualizacion() {
-		assertEquals(
-				mensajeNuevo.obtenerVisualizacion() + "\n\n---- Correo reenviado ----\n\n"
-						+ correoReenviado.obtenerVisualizacion() + "\n---- Fin correo reenviado ----",
-				reenvio.obtenerVisualizacion());
-	}
-
-	@Test
-	public void testObtenerTamañoReenvioVacio() {
-		assertEquals(textoVacio.obtenerTamaño() + textoNuevoVacio.obtenerTamaño(), reenvioVacio.obtenerTamaño());
-	}
-
-	@Test
+	@Example
 	public void testObtenerVisualizacionReenvioVacio() {
-		assertEquals(
-				mensajeNuevoVacio.obtenerVisualizacion() + "\n\n---- Correo reenviado ----\n\n"
-						+ correoReenviadoVacio.obtenerVisualizacion() + "\n---- Fin correo reenviado ----",
-				reenvioVacio.obtenerVisualizacion());
+		textoVacio = new Texto("", "");
+		textoNuevoVacio = new Texto("", "");
+		mensajeNuevoVacio = new Mensaje(textoNuevoVacio);
+		correoReenviadoVacio = new Mensaje(textoVacio);
+		reenvioVacio = new Reenvio(mensajeNuevoVacio, correoReenviadoVacio);
+		Assertions
+				.assertThat(mensajeNuevoVacio.obtenerVisualizacion() + "\n\n---- Correo reenviado ----\n\n"
+						+ correoReenviadoVacio.obtenerVisualizacion() + "\n---- Fin correo reenviado ----")
+				.isEqualTo(reenvioVacio.obtenerVisualizacion());
 	}
 
 }
