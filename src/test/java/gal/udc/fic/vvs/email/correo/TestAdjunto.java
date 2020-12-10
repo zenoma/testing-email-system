@@ -1,133 +1,181 @@
 package gal.udc.fic.vvs.email.correo;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.assertj.core.api.Assertions;
 
 import gal.udc.fic.vvs.email.archivo.Archivo;
+import gal.udc.fic.vvs.email.archivo.Audio;
 import gal.udc.fic.vvs.email.archivo.Imagen;
 import gal.udc.fic.vvs.email.archivo.Texto;
+import net.jqwik.api.Arbitraries;
+import net.jqwik.api.Arbitrary;
+import net.jqwik.api.Combinators;
+import net.jqwik.api.Example;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
+import net.jqwik.api.Provide;
 
 public class TestAdjunto {
-	private static Adjunto adjunto;
-	private static Mensaje mensaje;
-	private static Texto texto;
-	private static Archivo archivo;
-	private static Adjunto adjuntoVacio;
-	private static Mensaje mensajeVacio;
-	private static Texto textoVacio;
-	private static Archivo archivoVacio;
+	private static Texto textoVacio = new Texto("", "");
+	private static Archivo archivoVacio = new Imagen("", "");
+	private static Mensaje mensajeVacio = new Mensaje(textoVacio);
+	private static Adjunto adjuntoVacio = new Adjunto(mensajeVacio, archivoVacio);
 
-	@Before
-	public void setUpTest() {
-		archivo = new Imagen("imagen", "Foto");
-		texto = new Texto("texto", "Contenido del texto");
-		mensaje = new Mensaje(texto);
-		adjunto = new Adjunto(mensaje, archivo);
+	@Provide
+	Arbitrary<Texto> textoProvider() {
+		Arbitrary<String> texts = Arbitraries.strings().alpha();
+		Arbitrary<String> contents = Arbitraries.strings().alpha();
+		return Combinators.combine(texts, contents).as((text, content) -> new Texto(text, content));
+	}
 
-		archivoVacio = new Imagen("", "");
-		textoVacio = new Texto("", "");
-		mensajeVacio = new Mensaje(textoVacio);
-		adjuntoVacio = new Adjunto(mensajeVacio, archivoVacio);
+	@Provide
+	Arbitrary<Imagen> imagenProvider() {
+		Arbitrary<String> texts = Arbitraries.strings().alpha();
+		Arbitrary<String> contents = Arbitraries.strings().alpha();
+		return Combinators.combine(texts, contents).as((text, content) -> new Imagen(text, content));
+	}
+
+	@Provide
+	Arbitrary<Audio> audioProvider() {
+		Arbitrary<String> texts = Arbitraries.strings().alpha();
+		Arbitrary<String> contents = Arbitraries.strings().alpha();
+		return Combinators.combine(texts, contents).as((text, content) -> new Audio(text, content));
+	}
+
+	@Provide
+	Arbitrary<Mensaje> mensajeProvider() {
+		Texto texto = textoProvider().sample();
+		return Combinators.withBuilder(() -> new Mensaje(texto)).build();
+	}
+
+	@Provide
+	Arbitrary<Adjunto> adjuntoProvider() {
+		Arbitrary<Mensaje> mensajes = mensajeProvider();
+		int rnd = Arbitraries.integers().between(0, 2).sample();
+		if (rnd == 0) {
+			return Combinators.combine(mensajes, textoProvider())
+					.as((mensaje, archivo) -> new Adjunto(mensaje, archivo));
+		} else if (rnd == 1) {
+			return Combinators.combine(mensajes, imagenProvider())
+					.as((mensaje, archivo) -> new Adjunto(mensaje, archivo));
+		} else {
+			return Combinators.combine(mensajes, audioProvider())
+					.as((mensaje, archivo) -> new Adjunto(mensaje, archivo));
+		}
 
 	}
 
-	@Test
-	public void testObtenerTamaño() {
-		assertEquals(mensaje.obtenerTamaño() + archivo.obtenerTamaño(), adjunto.obtenerTamaño());
+	@Property
+	public void testObtenerTamaño(@ForAll("mensajeProvider") Mensaje msg, @ForAll("imagenProvider") Archivo archivo) {
+		Adjunto adjunto = new Adjunto(msg, archivo);
+		assertEquals(msg.obtenerTamaño() + archivo.obtenerTamaño(), adjunto.obtenerTamaño());
 	}
 
-	@Test
-	public void testObtenerVisualizacion() {
-		assertEquals(mensaje.obtenerVisualizacion() + "\n\nAdxunto: " + archivo.obtenerPreVisualizacion(),
+	@Property
+	public void testObtenerVisualizacion(@ForAll("mensajeProvider") Mensaje msg,
+			@ForAll("imagenProvider") Archivo archivo) {
+		Adjunto adjunto = new Adjunto(msg, archivo);
+		assertEquals(msg.obtenerVisualizacion() + "\n\nAdxunto: " + archivo.obtenerPreVisualizacion(),
 				adjunto.obtenerVisualizacion());
 	}
 
-	@Test
+	@Example
 	public void testObtenerTamañoAdjuntoVacio() {
 		assertEquals(mensajeVacio.obtenerTamaño() + archivoVacio.obtenerTamaño(), adjuntoVacio.obtenerTamaño());
 	}
 
-	@Test
+	@Example
 	public void testObtenerVisualizacionAdjuntoVacio() {
 		assertEquals(mensajeVacio.obtenerVisualizacion() + "\n\nAdxunto: " + archivoVacio.obtenerPreVisualizacion(),
 				adjuntoVacio.obtenerVisualizacion());
 	}
 
-	@Test
-	public void testEstablecerNoLeidoYObtenerNoLeidos() {
+	@Property
+	public void testEstablecerNoLeidoYObtenerNoLeidos(@ForAll("adjuntoProvider") Adjunto adjunto) {
 		adjunto.establecerLeido(false);
 		assertEquals(1, adjunto.obtenerNoLeidos());
 	}
 
-	@Test
-	public void testEstablecerLeidoYObtenerNoLeidos() {
+	@Property
+	public void testEstablecerLeidoYObtenerNoLeidos(@ForAll("adjuntoProvider") Adjunto adjunto) {
 		adjunto.establecerLeido(true);
 		assertEquals(0, adjunto.obtenerNoLeidos());
 	}
 
-	@Test
-	public void testObtenerIconoAdjunto() {
+	@Property
+	public void testObtenerIconoAdjunto(@ForAll("adjuntoProvider") Adjunto adjunto) {
 		adjunto.establecerLeido(true);
 		assertEquals(Correo.ICONO_MENSAJE, adjunto.obtenerIcono());
 	}
 
-	@Test
-	public void testObtenerIconoNuevoMensaje() {
+	@Property
+	public void testObtenerIconoNuevoMensaje(@ForAll("adjuntoProvider") Adjunto adjunto) {
 		adjunto.establecerLeido(false);
 		assertEquals(Correo.ICONO_NUEVO_MENSAJE, adjunto.obtenerIcono());
 	}
 
-	@Test
-	public void testObtenerPreVisualizacion() {
+	@Property
+	public void testObtenerPreVisualizacion(@ForAll("adjuntoProvider") Adjunto adjunto) {
 		assertTrue(adjunto.obtenerPreVisualizacion().endsWith("..."));
 	}
 
-	@Test
-	public void testBuscar() {
-		assertEquals(1, adjunto.buscar(texto.obtenerContenido()).size());
+	@Property
+	public void testBuscar(@ForAll("textoProvider") Texto txt, @ForAll("imagenProvider") Archivo archivo) {
+		Mensaje msg = new Mensaje(txt);
+		Adjunto adjunto = new Adjunto(msg, archivo);
+		assertEquals(1, adjunto.buscar(txt.obtenerContenido()).size());
 	}
 
-	@Test
-	public void testBuscarSinResultado() {
-		assertEquals(0, adjunto.buscar("imagen").size());
+	@Example
+	public void testBuscarSinResultado(@ForAll("textoProvider") Texto txt, @ForAll("imagenProvider") Archivo archivo) {
+		Mensaje msg = new Mensaje(txt);
+		Adjunto adjunto = new Adjunto(msg, archivo);
+		assertEquals(0, adjunto.buscar(txt.obtenerContenido() + "aaa").size());
 	}
 
-	@Test
-	public void testObtenerRuta() {
-		assertEquals(mensaje.obtenerRuta(), adjunto.obtenerRuta());
+	@Property
+	public void testObtenerRuta(@ForAll("mensajeProvider") Mensaje msg, @ForAll("imagenProvider") Archivo archivo) {
+		Adjunto adjunto = new Adjunto(msg, archivo);
+		assertEquals(msg.obtenerRuta(), adjunto.obtenerRuta());
 	}
 
-	@Test(expected = OperacionInvalida.class)
-	public void testExplorar() throws OperacionInvalida {
-		adjunto.explorar();
+	@Example
+	public void testExplorar(@ForAll("adjuntoProvider") Adjunto adjunto) throws OperacionInvalida {
+		Assertions.assertThatThrownBy(() -> {
+			adjunto.explorar();
+		}).isInstanceOf(OperacionInvalida.class);
 	}
 
-	@Test(expected = OperacionInvalida.class)
-	public void testAñadirCorreo() throws OperacionInvalida {
-		adjunto.añadir(null);
+	@Example
+	public void testAñadirCorreo(@ForAll("adjuntoProvider") Adjunto adjunto) throws OperacionInvalida {
+		Assertions.assertThatThrownBy(() -> {
+			adjunto.añadir(null);
+		}).isInstanceOf(OperacionInvalida.class);
 	}
 
-	@Test(expected = OperacionInvalida.class)
-	public void testEliminarCorreo() throws OperacionInvalida {
-		adjunto.eliminar(null);
+	@Example
+	public void testEliminarCorreo(@ForAll("adjuntoProvider") Adjunto adjunto) throws OperacionInvalida {
+		Assertions.assertThatThrownBy(() -> {
+			adjunto.eliminar(null);
+		}).isInstanceOf(OperacionInvalida.class);
 	}
 
-	@Test(expected = OperacionInvalida.class)
-	public void testObtenerHijo() throws OperacionInvalida {
-		adjunto.obtenerHijo(0);
+	@Example
+	public void testObtenerHijo(@ForAll("adjuntoProvider") Adjunto adjunto) throws OperacionInvalida {
+		Assertions.assertThatThrownBy(() -> {
+			adjunto.obtenerHijo(0);
+		}).isInstanceOf(OperacionInvalida.class);
 	}
 
-	@Test
-	public void testObtenerPadre() throws OperacionInvalida {
-		assertNull(adjunto.obtenerPadre());
+	@Property
+	public void testObtenerPadre(@ForAll("adjuntoProvider") Adjunto adjunto) throws OperacionInvalida {
+		Assertions.assertThat(adjunto.obtenerPadre()).isNull();
 	}
 
-	@Test
-	public void testEstablecerPadre() throws OperacionInvalida {
+	@Property
+	public void testEstablecerPadre(@ForAll("adjuntoProvider") Adjunto adjunto) throws OperacionInvalida {
 		Carpeta nuevaCarpeta = new Carpeta("Nueva");
 		adjunto.establecerPadre(nuevaCarpeta);
 		assertEquals(nuevaCarpeta, adjunto.obtenerPadre());
