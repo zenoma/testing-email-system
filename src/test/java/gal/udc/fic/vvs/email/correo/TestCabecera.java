@@ -43,6 +43,17 @@ public class TestCabecera {
 		cabeceraVacia = new Cabecera(mensajeVacio, NOMBRE_VACIO, VALOR_VACIO);
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param msg    Mensaje para obtener tamaño
+	 * @param nombre Nombre para obtener tamaño
+	 * @param valor  Valor para obtener tamaño
+	 */
 	@Property
 	public void testObtenerTamaño(@ForAll("mensajeProvider") Mensaje msg, @ForAll("strings") String nombre,
 			@ForAll("strings") String valor) {
@@ -51,6 +62,17 @@ public class TestCabecera {
 				.isEqualTo(cabecera.obtenerTamaño());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param msg    Mensaje para obtener visualización
+	 * @param nombre Nombre para obtener visualización
+	 * @param valor  Valor para obtener visualización
+	 */
 	@Property
 	public void testObtenerVisualizacion(@ForAll("mensajeProvider") Mensaje msg, @ForAll("strings") String nombre,
 			@ForAll("strings") String valor) {
@@ -60,6 +82,13 @@ public class TestCabecera {
 				.isEqualTo(cabecera.obtenerVisualizacion());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Valores frontera
+	 * </pre>
+	 */
 	@Example
 	public void testObtenerTamañoCabeceraVacio() {
 
@@ -67,6 +96,13 @@ public class TestCabecera {
 				.isEqualTo(cabeceraVacia.obtenerTamaño());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Valores frontera
+	 * </pre>
+	 */
 	@Example
 	public void testObtenerVisualizacionCabeceraVacio() {
 		Assertions.assertThat(": \n").isEqualTo(cabeceraVacia.obtenerVisualizacion());

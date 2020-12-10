@@ -40,12 +40,32 @@ public class TestArchivadorSimple {
 		return Combinators.withBuilder(() -> new Mensaje(texto)).build();
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positivas
+	 * Selección de datos: Generación automática de datos
+	 * </pre>
+	 * 
+	 * @param nombre Nombre dedl archivador
+	 * @param size   Tamaño del archivador
+	 */
 	@Property
 	public void testObtenerNombre(@ForAll("stringProvider") String nombre, @ForAll("integerProvider") Integer size) {
 		Archivador archivadorSimple = new ArchivadorSimple(nombre, size);
 		assertEquals(nombre, archivadorSimple.obtenerNombre());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positivas
+	 * Selección de datos: Generación automática de datos
+	 * </pre>
+	 * 
+	 * @param nombre Nombre dedl archivador
+	 * @param size   Tamaño del archivador
+	 */
 	@Property
 	public void testObtenerEspacioTotal(@ForAll("stringProvider") String nombre,
 			@ForAll("integerProvider") Integer size) {
@@ -54,6 +74,16 @@ public class TestArchivadorSimple {
 
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positivas
+	 * Selección de datos: Generación automática de datos
+	 * </pre>
+	 * 
+	 * @param nombre Nombre dedl archivador
+	 * @param size   Tamaño del archivador
+	 */
 	@Property
 	public void testAlmacenarCorreoYObtenerEspacioDisponible(@ForAll("stringProvider") String nombre,
 			@ForAll("integerProvider") Integer size) {
@@ -63,6 +93,16 @@ public class TestArchivadorSimple {
 		Assertions.assertThat(archivadorSimple.obtenerEspacioDisponible()).isEqualTo(size - msg.obtenerTamaño());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Generación automática de datos
+	 * </pre>
+	 * 
+	 * @param nombre Nombre dedl archivador
+	 * @param size   Tamaño del archivador
+	 */
 	@Property
 	public void testObtenerDelegadoNull(@ForAll("stringProvider") String nombre,
 			@ForAll("integerProvider") Integer size) {
@@ -70,6 +110,16 @@ public class TestArchivadorSimple {
 		Assertions.assertThat(archivadorSimple.obtenerDelegado()).isNull();
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Valores frontera y Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param nombre Nombre dedl archivador
+	 * @param msg    Mensaje para almacecnar
+	 */
 	@Example
 	public void testNoAlmacenarCorreo(@ForAll("stringProvider") String nombre, @ForAll("mensajeProvider") Mensaje msg) {
 		Archivador archivadorSimple = new ArchivadorSimple(nombre, 0);

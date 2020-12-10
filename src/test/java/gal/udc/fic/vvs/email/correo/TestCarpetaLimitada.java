@@ -53,6 +53,16 @@ public class TestCarpetaLimitada {
 		carpetaVaciaLimitada = new CarpetaLimitada(carpetaVacia, 0);
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Generación automática
+	 * </pre>
+	 * 
+	 * @param msg Mensaje para añadir
+	 * @throws OperacionInvalida Operación no soportada
+	 */
 	@Property
 	public void testAñadirCorreoYBuscarCorreo(@ForAll("mensajeProvider") Mensaje msg) throws OperacionInvalida {
 		boolean result = false;
@@ -66,6 +76,16 @@ public class TestCarpetaLimitada {
 		Assertions.assertThat(result).isTrue();
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Generación automática
+	 * </pre>
+	 * 
+	 * @param msg Mensaje para añadir
+	 * @throws OperacionInvalida Operación no soportada
+	 */
 	@Property
 	public void testAñadirCorreoYBuscarCorreoCarpetaVacia(@ForAll("mensajeProvider") Mensaje msg)
 			throws OperacionInvalida {
@@ -80,6 +100,16 @@ public class TestCarpetaLimitada {
 		Assertions.assertThat(result).isTrue();
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Generación automática
+	 * </pre>
+	 * 
+	 * @param msg Mensaje para añadir
+	 * @throws OperacionInvalida Operación no soportada
+	 */
 	@Property
 	public void testMoverCorreoDeCarpeta(@ForAll("mensajeProvider") Mensaje msg) throws OperacionInvalida {
 		boolean result = false;
@@ -101,6 +131,16 @@ public class TestCarpetaLimitada {
 		Assertions.assertThat(result).isTrue();
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Generación automática
+	 * </pre>
+	 * 
+	 * @param msg Mensaje para añadir
+	 * @throws OperacionInvalida Operación no soportada
+	 */
 	@Property
 	public void testEliminarCorreoDeCarpeta(@ForAll("mensajeProvider") Mensaje msg) throws OperacionInvalida {
 		boolean result = false;
@@ -114,6 +154,16 @@ public class TestCarpetaLimitada {
 		Assertions.assertThat(result).isFalse();
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos:  Valores frontera
+	 * </pre>
+	 * 
+	 * @param msg Mensaje para añadir
+	 * @throws OperacionInvalida Operación no soportada
+	 */
 	@Property
 	public void testExplorarCarpetaVacia(@ForAll("mensajeProvider") Mensaje msg) throws OperacionInvalida {
 		boolean result = false;
@@ -125,6 +175,15 @@ public class TestCarpetaLimitada {
 		Assertions.assertThat(result).isFalse();
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Valores Representativos
+	 * </pre>
+	 * 
+	 * @throws OperacionInvalida Operación no soportada
+	 */
 	@Example
 	public void testExplorarCarpetaConElementos() throws OperacionInvalida {
 		Mensaje mensaje = new Mensaje(new Texto("nombre", "contenido"));
@@ -134,6 +193,17 @@ public class TestCarpetaLimitada {
 		Assertions.assertThat(carpetaImportantesLimitada.buscar("contenido").toArray()).hasSize(2);
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Generación automática
+	 * </pre>
+	 * 
+	 * @param msg  Mensaje para añadir y marcar como leido
+	 * @param msg2 Mensaje para añadir
+	 * @throws OperacionInvalida Operación no soportada
+	 */
 	@Example
 	public void testObtenerNoLeidos(@ForAll("mensajeProvider") Mensaje msg, @ForAll("mensajeProvider") Mensaje msg2)
 			throws OperacionInvalida {
@@ -143,6 +213,17 @@ public class TestCarpetaLimitada {
 		Assertions.assertThat(carpetaImportantesLimitada.obtenerNoLeidos()).isEqualTo(1);
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Generación automática
+	 * </pre>
+	 * 
+	 * @param msg  Mensaje para añadir y marcar como leido
+	 * @param msg2 Mensaje para añadir
+	 * @throws OperacionInvalida Operación no soportada
+	 */
 	@Example
 	public void testObtenerTamaño(@ForAll("mensajeProvider") Mensaje msg, @ForAll("mensajeProvider") Mensaje msg2)
 			throws OperacionInvalida {
@@ -151,16 +232,45 @@ public class TestCarpetaLimitada {
 		Assertions.assertThat(carpetaImportantesLimitada.obtenerTamaño()).isNotZero();
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Valores frontera
+	 * </pre>
+	 * 
+	 * @throws OperacionInvalida Operación no soportada
+	 */
 	@Example
 	public void testObtenerTamañoCarpetaVacia() throws OperacionInvalida {
 		Assertions.assertThat(carpetaImportantesLimitada.obtenerTamaño()).isZero();
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Valores representativo
+	 * </pre>
+	 * 
+	 * @throws OperacionInvalida Operación no soportada
+	 */
 	@Example
 	public void testObtenerIcono() throws OperacionInvalida {
 		Assertions.assertThat(carpetaImportantesLimitada.obtenerIcono()).isEqualTo(Correo.ICONO_CARPETA);
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:   Generación automática
+	 * </pre>
+	 * 
+	 * @param msg  Mensaje para añadir
+	 * @param msg2 Mensaje para añadir
+	 * @throws OperacionInvalida Operación no soportada
+	 */
 	@Example
 	public void testObtenerVisualización(@ForAll("mensajeProvider") Mensaje msg,
 			@ForAll("mensajeProvider") Mensaje msg2) throws OperacionInvalida {
@@ -171,6 +281,16 @@ public class TestCarpetaLimitada {
 		Assertions.assertThat(carpeta.obtenerVisualizacion()).isEqualTo(expected);
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Generación automática
+	 * </pre>
+	 * 
+	 * @param msg Mensaje para añadir
+	 * @throws OperacionInvalida Operación no soportada
+	 */
 	@Property
 	public void testObtenerPreVisualización(@ForAll("mensajeProvider") Mensaje msg) throws OperacionInvalida {
 		carpetaImportantesLimitada.añadir(msg);
@@ -178,23 +298,60 @@ public class TestCarpetaLimitada {
 				.isEqualTo(carpetaImportantesLimitada.obtenerVisualizacion());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Generación automática
+	 * </pre>
+	 * 
+	 * @throws OperacionInvalida Operación no soportada
+	 */
 	@Property
 	public void testObtenerVisualizaciónCarpetaVacia() throws OperacionInvalida {
 		Assertions.assertThat(carpetaImportantesLimitada.obtenerPreVisualizacion())
 				.isEqualTo(carpetaImportantesLimitada.obtenerVisualizacion());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Generación automática
+	 * </pre>
+	 * 
+	 * @throws OperacionInvalida Operación no soportada
+	 */
 	@Property
 	public void testEstablecerCarpetaLeida(@ForAll("carpetaProvider") Carpeta carpeta) throws OperacionInvalida {
 		carpeta.establecerLeido(true);
 		Assertions.assertThat(carpeta.obtenerNoLeidos()).isZero();
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Generación automática
+	 * </pre>
+	 * 
+	 * @param carpeta Carpeta para obtener ruta
+	 * @throws OperacionInvalida Operación no soportada
+	 */
 	@Property
 	public void testObtenerRuta(@ForAll("carpetaProvider") Carpeta carpeta) throws OperacionInvalida {
 		Assertions.assertThat(carpeta.obtenerRuta()).isEqualTo(carpeta.obtenerVisualizacion());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos:  Valor frontera
+	 * </pre>
+	 * 
+	 * @throws OperacionInvalida Operación no soportada
+	 */
 	@Example
 	public void testObtenerHijoCarpetaVacia() throws OperacionInvalida {
 		Assertions.assertThatThrownBy(() -> {
@@ -202,16 +359,46 @@ public class TestCarpetaLimitada {
 		}).isInstanceOf(ArrayIndexOutOfBoundsException.class);
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Generación automática
+	 * </pre>
+	 * 
+	 * @param carpeta Carpeta para obtener padre
+	 * @throws OperacionInvalida Operación no soportada
+	 */
 	@Property
 	public void testObtenerPadre(@ForAll("carpetaProvider") Carpeta carpeta) throws OperacionInvalida {
 		Assertions.assertThat(carpeta.obtenerPadre()).isNull();
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Generación automática
+	 * </pre>
+	 * 
+	 * @param carpeta Carpeta para obtener hijo
+	 * @throws OperacionInvalida Operación no soportada
+	 */
 	@Property
 	public void testObtenerHijo(@ForAll("carpetaProvider") Carpeta carpeta) throws OperacionInvalida {
 		Assertions.assertThat(carpeta.obtenerHijo(0)).isNotNull();
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Generación automática
+	 * </pre>
+	 * 
+	 * @param carpeta Carpeta para obtener padre
+	 * @throws OperacionInvalida Operación no soportada
+	 */
 	@Property
 	public void testCambiarPadreYObtenerPadre(@ForAll("carpetaProvider") Carpeta carpeta) throws OperacionInvalida {
 

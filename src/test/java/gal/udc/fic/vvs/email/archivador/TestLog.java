@@ -37,6 +37,16 @@ public class TestLog {
 		return Arbitraries.integers().greaterOrEqual(10);
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos: Valores frontera y Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param nombre Nombre para crear Archivador
+	 * @param size   Tamaño para crear Archivador
+	 */
 	@Property(tries = 100)
 	public void testAlmacenarCorreoYObtenerEspacioDisponible(@ForAll("stringProvider") String nombre,
 			@ForAll("integerProvider") Integer size) {
@@ -48,6 +58,15 @@ public class TestLog {
 				.isEqualTo(log.obtenerEspacioTotal() - msg.obtenerTamaño());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Valores frontera y Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param msg Mensaje para almacenar
+	 */
 	@Example
 	public void testNoAlmacenarCorreo(@ForAll("mensajeProvider") Mensaje msg) {
 		Archivador archivadorPequeño = new ArchivadorSimple("Some name", 0);

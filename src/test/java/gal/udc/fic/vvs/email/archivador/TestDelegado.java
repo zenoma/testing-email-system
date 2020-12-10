@@ -33,6 +33,16 @@ public class TestDelegado {
 		return Combinators.withBuilder(() -> new ArchivadorSimple(nombre, size)).build();
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param msg        Mensaje par almacenar
+	 * @param archivador Archivador para crear el delegado
+	 */
 	@Property
 	public void testAlmacenarCorreoYObtenerEspacioDisponible(@ForAll("mensajeProvider") Mensaje msg,
 			@ForAll("archivadorProvider") ArchivadorSimple archivador) {
@@ -42,6 +52,16 @@ public class TestDelegado {
 				.isEqualTo(delegado.obtenerEspacioTotal() - msg.obtenerTamaño());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param msg        Mensaje par almacenar
+	 * @param archivador Archivador para crear el delegado
+	 */
 	@Property
 	public void testObtenerDelegado(@ForAll("mensajeProvider") Mensaje msg,
 			@ForAll("archivadorProvider") ArchivadorSimple archivador) {
@@ -49,6 +69,15 @@ public class TestDelegado {
 		Assertions.assertThat(delegado.obtenerDelegado()).isNull();
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param archivador Archivador para crear el delegado
+	 */
 	@Property
 	public void testEstablecerDelegadoYObtenerDelegado(@ForAll("archivadorProvider") ArchivadorSimple archivador) {
 		Delegado delegado = new Delegado(archivador);
@@ -56,6 +85,15 @@ public class TestDelegado {
 		Assertions.assertThat(delegado.obtenerDelegado()).isEqualTo(archivador);
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Valores frontera y Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param archivador Archivador para crear el delegado
+	 */
 	@Property
 	public void testNoAlmacenarCorreo(@ForAll("mensajeProvider") Mensaje msg) {
 		Archivador archivador = new ArchivadorSimple(Arbitraries.strings().alpha().sample(), 0);
