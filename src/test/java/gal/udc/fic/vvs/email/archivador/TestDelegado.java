@@ -1,58 +1,67 @@
 package gal.udc.fic.vvs.email.archivador;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.assertj.core.api.Assertions;
 
 import gal.udc.fic.vvs.email.archivo.Texto;
-import gal.udc.fic.vvs.email.correo.Correo;
 import gal.udc.fic.vvs.email.correo.Mensaje;
+import net.jqwik.api.Arbitraries;
+import net.jqwik.api.Arbitrary;
+import net.jqwik.api.Combinators;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
+import net.jqwik.api.Provide;
 
 public class TestDelegado {
-	private static Delegado delegado;
-	private static Delegado delegadoPequeño;
-	private static Archivador archivadorSimple;
-	private static Archivador archivadorPequeño;
-	private static Archivador archivador;
-	private static Correo correo;
 
-	private final String NOMBRE = "nombre";
-	private final int SIZE = 100;
-
-	@Before
-	public void setUpTest() {
-		archivador = new ArchivadorSimple(NOMBRE, SIZE);
-		archivadorPequeño = new ArchivadorSimple(NOMBRE, 0);
-		archivadorSimple = new ArchivadorSimple(NOMBRE, SIZE);
-		delegadoPequeño = new Delegado(archivadorPequeño);
-		delegado = new Delegado(archivadorSimple);
-		correo = new Mensaje(new Texto("texto", "Contenido texto"));
+	@Provide
+	Arbitrary<Texto> textoProvider() {
+		Arbitrary<String> texts = Arbitraries.strings().alpha();
+		Arbitrary<String> contents = Arbitraries.strings().alpha();
+		return Combinators.combine(texts, contents).as((text, content) -> new Texto(text, content));
 	}
 
-	@Test
-	public void testAlmacenarCorreoYObtenerEspacioDisponible() {
-		delegado.almacenarCorreo(correo);
-		assertEquals(SIZE - correo.obtenerTamaño(), delegado.obtenerEspacioDisponible());
+	@Provide
+	Arbitrary<Mensaje> mensajeProvider() {
+		Texto texto = textoProvider().sample();
+		return Combinators.withBuilder(() -> new Mensaje(texto)).build();
 	}
 
-	@Test
-	public void testObtenerDelegado() {
-		assertNull(delegado.obtenerDelegado());
+	@Provide
+	Arbitrary<ArchivadorSimple> archivadorProvider() {
+		String nombre = Arbitraries.strings().sample();
+		int size = Arbitraries.integers().greaterOrEqual(0).sample();
+		return Combinators.withBuilder(() -> new ArchivadorSimple(nombre, size)).build();
 	}
 
-	@Test
-	public void testEstablecerDelegadoYObtenerDelegado() {
+	@Property
+	public void testAlmacenarCorreoYObtenerEspacioDisponible(@ForAll("mensajeProvider") Mensaje msg,
+			@ForAll("archivadorProvider") ArchivadorSimple archivador) {
+		Delegado delegado = new Delegado(archivador);
+		delegado.almacenarCorreo(msg);
+		Assertions.assertThat(delegado.obtenerEspacioDisponible())
+				.isEqualTo(delegado.obtenerEspacioTotal() - msg.obtenerTamaño());
+	}
+
+	@Property
+	public void testObtenerDelegado(@ForAll("mensajeProvider") Mensaje msg,
+			@ForAll("archivadorProvider") ArchivadorSimple archivador) {
+		Delegado delegado = new Delegado(archivador);
+		Assertions.assertThat(delegado.obtenerDelegado()).isNull();
+	}
+
+	@Property
+	public void testEstablecerDelegadoYObtenerDelegado(@ForAll("archivadorProvider") ArchivadorSimple archivador) {
+		Delegado delegado = new Delegado(archivador);
 		delegado.establecerDelegado(archivador);
-		assertEquals(archivador, delegado.obtenerDelegado());
+		Assertions.assertThat(delegado.obtenerDelegado()).isEqualTo(archivador);
 	}
 
-	@Test
-	public void testNoAlmacenarCorreo() {
-		delegadoPequeño.establecerDelegado(archivadorPequeño);
-		assertFalse(delegadoPequeño.almacenarCorreo(correo));
+	@Property
+	public void testNoAlmacenarCorreo(@ForAll("mensajeProvider") Mensaje msg) {
+		Archivador archivador = new ArchivadorSimple(Arbitraries.strings().alpha().sample(), 0);
+		Delegado delegadoPequeño = new Delegado(archivador);
+		delegadoPequeño.establecerDelegado(archivador);
+		Assertions.assertThat(delegadoPequeño.almacenarCorreo(msg)).isFalse();
 	}
 
 }
