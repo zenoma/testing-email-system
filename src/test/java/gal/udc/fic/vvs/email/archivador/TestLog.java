@@ -1,46 +1,58 @@
 package gal.udc.fic.vvs.email.archivador;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.assertj.core.api.Assertions;
 
 import gal.udc.fic.vvs.email.archivo.Texto;
 import gal.udc.fic.vvs.email.correo.Correo;
 import gal.udc.fic.vvs.email.correo.Mensaje;
+import net.jqwik.api.Arbitraries;
+import net.jqwik.api.Arbitrary;
+import net.jqwik.api.Combinators;
+import net.jqwik.api.Example;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
+import net.jqwik.api.Provide;
 
 public class TestLog {
-	private static Log log;
-	private static Log logPequeño;
-	private static Archivador archivadorSimple;
-	private static Archivador archivadorPequeño;
-	private static Archivador archivador;
-	private static Correo correo;
-
-	private final String NOMBRE = "nombre";
-	private final int SIZE = 100;
-
-	@Before
-	public void setUpTest() {
-		archivador = new ArchivadorSimple(NOMBRE, SIZE);
-		archivadorPequeño = new ArchivadorSimple(NOMBRE, 0);
-		archivadorSimple = new ArchivadorSimple(NOMBRE, SIZE);
-		logPequeño = new Log(archivadorPequeño);
-		log = new Log(archivadorSimple);
-		correo = new Mensaje(new Texto("texto", "Contenido texto"));
+	@Provide
+	Arbitrary<Texto> textoProvider() {
+		Arbitrary<String> texts = Arbitraries.strings().alpha();
+		Arbitrary<String> contents = Arbitraries.strings().alpha();
+		return Combinators.combine(texts, contents).as((text, content) -> new Texto(text, content));
 	}
 
-	@Test
-	public void testAlmacenarCorreoYObtenerEspacioDisponible() {
-		log.almacenarCorreo(correo);
-		assertEquals(SIZE - correo.obtenerTamaño(), log.obtenerEspacioDisponible());
+	@Provide
+	Arbitrary<Mensaje> mensajeProvider() {
+		Texto texto = textoProvider().sample();
+		return Combinators.withBuilder(() -> new Mensaje(texto)).build();
 	}
 
-	@Test
-	public void testNoAlmacenarCorreo() {
-		logPequeño.establecerDelegado(archivadorPequeño);
-		assertFalse(logPequeño.almacenarCorreo(correo));
+	@Provide
+	Arbitrary<String> stringProvider() {
+		return Arbitraries.strings().alpha();
+	}
+
+	@Provide
+	Arbitrary<Integer> integerProvider() {
+		return Arbitraries.integers().greaterOrEqual(10);
+	}
+
+	@Property(tries = 100)
+	public void testAlmacenarCorreoYObtenerEspacioDisponible(@ForAll("stringProvider") String nombre,
+			@ForAll("integerProvider") Integer size) {
+		Archivador archivador = new ArchivadorSimple(nombre, size);
+		Correo msg = new Mensaje(new Texto("a", "b"));
+		Log log = new Log(archivador);
+		log.almacenarCorreo(msg);
+		Assertions.assertThat(log.obtenerEspacioDisponible())
+				.isEqualTo(log.obtenerEspacioTotal() - msg.obtenerTamaño());
+	}
+
+	@Example
+	public void testNoAlmacenarCorreo(@ForAll("mensajeProvider") Mensaje msg) {
+		Archivador archivadorPequeño = new ArchivadorSimple("Some name", 0);
+		Log logPequeño = new Log(archivadorPequeño);
+		Assertions.assertThat(logPequeño.almacenarCorreo(msg)).isFalse();
 	}
 
 }
