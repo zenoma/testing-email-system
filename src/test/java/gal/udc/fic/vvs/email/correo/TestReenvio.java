@@ -36,6 +36,16 @@ public class TestReenvio {
 		return Combinators.withBuilder(() -> new Mensaje(texto)).build();
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Generación automática
+	 * </pre>
+	 * 
+	 * @param texto      Texto para crear mensaje
+	 * @param nuevoTexto Nuevo texto para reenviar
+	 */
 	@Property
 	public void testObtenerTamaño(@ForAll("textoProvider") Texto texto, @ForAll("textoProvider") Texto nuevoTexto) {
 		correoReenviado = new Mensaje(texto);
@@ -44,6 +54,16 @@ public class TestReenvio {
 		Assertions.assertThat(texto.obtenerTamaño() + nuevoTexto.obtenerTamaño()).isEqualTo(reenvio.obtenerTamaño());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Generación automática
+	 * </pre>
+	 * 
+	 * @param texto      Texto para crear mensaje
+	 * @param nuevoTexto Nuevo texto para reenviar
+	 */
 	@Property
 	public void testObtenerVisualizacion(@ForAll("textoProvider") Texto texto,
 			@ForAll("textoProvider") Texto nuevoTexto) {
@@ -57,6 +77,13 @@ public class TestReenvio {
 
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos: Valores frontera
+	 * </pre>
+	 */
 	@Example
 	public void testObtenerTamañoReenvioVacio() {
 		textoVacio = new Texto("", "");
@@ -68,6 +95,13 @@ public class TestReenvio {
 				.isEqualTo(reenvioVacio.obtenerTamaño());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos: Valores frontera
+	 * </pre>
+	 */
 	@Example
 	public void testObtenerVisualizacionReenvioVacio() {
 		textoVacio = new Texto("", "");

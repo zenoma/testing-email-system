@@ -67,12 +67,33 @@ public class TestAdjunto {
 
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param msg     Mensaje para crear adjunto
+	 * @param archivo Archivo para crear adjunto
+	 */
 	@Property
 	public void testObtenerTamaño(@ForAll("mensajeProvider") Mensaje msg, @ForAll("imagenProvider") Archivo archivo) {
 		Adjunto adjunto = new Adjunto(msg, archivo);
 		assertEquals(msg.obtenerTamaño() + archivo.obtenerTamaño(), adjunto.obtenerTamaño());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param msg     Mensaje para crear adjunto
+	 * @param archivo Archivo para crear adjunto
+	 * 
+	 */
 	@Property
 	public void testObtenerVisualizacion(@ForAll("mensajeProvider") Mensaje msg,
 			@ForAll("imagenProvider") Archivo archivo) {
@@ -81,46 +102,115 @@ public class TestAdjunto {
 				adjunto.obtenerVisualizacion());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Valores frontera
+	 * </pre>
+	 */
 	@Example
 	public void testObtenerTamañoAdjuntoVacio() {
 		assertEquals(mensajeVacio.obtenerTamaño() + archivoVacio.obtenerTamaño(), adjuntoVacio.obtenerTamaño());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Valores frontera
+	 * </pre>
+	 */
 	@Example
 	public void testObtenerVisualizacionAdjuntoVacio() {
 		assertEquals(mensajeVacio.obtenerVisualizacion() + "\n\nAdxunto: " + archivoVacio.obtenerPreVisualizacion(),
 				adjuntoVacio.obtenerVisualizacion());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param adjunto Adjunto para establecer leido
+	 */
 	@Property
 	public void testEstablecerNoLeidoYObtenerNoLeidos(@ForAll("adjuntoProvider") Adjunto adjunto) {
 		adjunto.establecerLeido(false);
 		assertEquals(1, adjunto.obtenerNoLeidos());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param adjunto Adjunto para establecer leido
+	 */
 	@Property
 	public void testEstablecerLeidoYObtenerNoLeidos(@ForAll("adjuntoProvider") Adjunto adjunto) {
 		adjunto.establecerLeido(true);
 		assertEquals(0, adjunto.obtenerNoLeidos());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param adjunto Adjunto para establecer leido
+	 */
 	@Property
 	public void testObtenerIconoAdjunto(@ForAll("adjuntoProvider") Adjunto adjunto) {
 		adjunto.establecerLeido(true);
 		assertEquals(Correo.ICONO_MENSAJE, adjunto.obtenerIcono());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param adjunto Adjunto para establecer leido
+	 */
 	@Property
 	public void testObtenerIconoNuevoMensaje(@ForAll("adjuntoProvider") Adjunto adjunto) {
 		adjunto.establecerLeido(false);
 		assertEquals(Correo.ICONO_NUEVO_MENSAJE, adjunto.obtenerIcono());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param adjunto Adjunto para establecer leido
+	 */
 	@Property
 	public void testObtenerPreVisualizacion(@ForAll("adjuntoProvider") Adjunto adjunto) {
 		assertTrue(adjunto.obtenerPreVisualizacion().endsWith("..."));
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param txt     Texto para crear el mensaje
+	 * @param archivo Para crear el adjunto
+	 */
 	@Property
 	public void testBuscar(@ForAll("textoProvider") Texto txt, @ForAll("imagenProvider") Archivo archivo) {
 		Mensaje msg = new Mensaje(txt);
@@ -128,6 +218,16 @@ public class TestAdjunto {
 		assertEquals(1, adjunto.buscar(txt.obtenerContenido()).size());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param txt     Texto para crear el mensaje
+	 * @param archivo Para crear el adjunto
+	 */
 	@Example
 	public void testBuscarSinResultado(@ForAll("textoProvider") Texto txt, @ForAll("imagenProvider") Archivo archivo) {
 		Mensaje msg = new Mensaje(txt);
@@ -135,12 +235,31 @@ public class TestAdjunto {
 		assertEquals(0, adjunto.buscar(txt.obtenerContenido() + "aaa").size());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param msg     Mensaje para obtener ruta
+	 * @param archivo Para obtener ruta
+	 */
 	@Property
 	public void testObtenerRuta(@ForAll("mensajeProvider") Mensaje msg, @ForAll("imagenProvider") Archivo archivo) {
 		Adjunto adjunto = new Adjunto(msg, archivo);
 		assertEquals(msg.obtenerRuta(), adjunto.obtenerRuta());
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param adjunto Adjunto para explorar
+	 */
 	@Example
 	public void testExplorar(@ForAll("adjuntoProvider") Adjunto adjunto) throws OperacionInvalida {
 		Assertions.assertThatThrownBy(() -> {
@@ -148,6 +267,15 @@ public class TestAdjunto {
 		}).isInstanceOf(OperacionInvalida.class);
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param adjunto Adjunto para añadir
+	 */
 	@Example
 	public void testAñadirCorreo(@ForAll("adjuntoProvider") Adjunto adjunto) throws OperacionInvalida {
 		Assertions.assertThatThrownBy(() -> {
@@ -155,6 +283,15 @@ public class TestAdjunto {
 		}).isInstanceOf(OperacionInvalida.class);
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param adjunto Adjunto para eliminar
+	 */
 	@Example
 	public void testEliminarCorreo(@ForAll("adjuntoProvider") Adjunto adjunto) throws OperacionInvalida {
 		Assertions.assertThatThrownBy(() -> {
@@ -162,6 +299,15 @@ public class TestAdjunto {
 		}).isInstanceOf(OperacionInvalida.class);
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param adjunto Adjunto para obtener hijo
+	 */
 	@Example
 	public void testObtenerHijo(@ForAll("adjuntoProvider") Adjunto adjunto) throws OperacionInvalida {
 		Assertions.assertThatThrownBy(() -> {
@@ -169,11 +315,29 @@ public class TestAdjunto {
 		}).isInstanceOf(OperacionInvalida.class);
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param adjunto Adjunto para obtener padre
+	 */
 	@Property
 	public void testObtenerPadre(@ForAll("adjuntoProvider") Adjunto adjunto) throws OperacionInvalida {
 		Assertions.assertThat(adjunto.obtenerPadre()).isNull();
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos: Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param adjunto Adjunto para establecer padre
+	 */
 	@Property
 	public void testEstablecerPadre(@ForAll("adjuntoProvider") Adjunto adjunto) throws OperacionInvalida {
 		Carpeta nuevaCarpeta = new Carpeta("Nueva");
