@@ -28,7 +28,7 @@ public class TestDelegado {
 
 	@Provide
 	Arbitrary<ArchivadorSimple> archivadorProvider() {
-		String nombre = Arbitraries.strings().sample();
+		String nombre = Arbitraries.strings().alpha().injectNull(0).sample();
 		int size = Arbitraries.integers().greaterOrEqual(0).sample();
 		return Combinators.withBuilder(() -> new ArchivadorSimple(nombre, size)).build();
 	}
