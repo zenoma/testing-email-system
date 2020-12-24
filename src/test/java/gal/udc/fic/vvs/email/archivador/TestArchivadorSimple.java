@@ -29,8 +29,8 @@ public class TestArchivadorSimple {
 
 	@Provide
 	Arbitrary<Texto> textoProvider() {
-		Arbitrary<String> texts = Arbitraries.strings().alpha();
-		Arbitrary<String> contents = Arbitraries.strings().alpha();
+		Arbitrary<String> texts = Arbitraries.strings().alpha().ofMinLength(1);
+		Arbitrary<String> contents = Arbitraries.strings().alpha().ofMinLength(1);
 		return Combinators.combine(texts, contents).as((text, content) -> new Texto(text, content));
 	}
 
@@ -121,9 +121,62 @@ public class TestArchivadorSimple {
 	 * @param msg    Mensaje para almacecnar
 	 */
 	@Example
-	public void testNoAlmacenarCorreo(@ForAll("stringProvider") String nombre, @ForAll("mensajeProvider") Mensaje msg) {
+	public void testNoAlmacenarCorreoArchivadorSinEspacio(@ForAll("stringProvider") String nombre,
+			@ForAll("mensajeProvider") Mensaje msg) {
 		Archivador archivadorSimple = new ArchivadorSimple(nombre, 0);
 		Assertions.assertThat(archivadorSimple.almacenarCorreo(msg)).isFalse();
+	}
+
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Valores frontera y Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param nombre Nombre dedl archivador
+	 * @param msg    Mensaje para almacecnar
+	 */
+	@Example
+	public void testNoAlmacenarCorreoSinEspacioSuficiente(@ForAll("stringProvider") String nombre,
+			@ForAll("mensajeProvider") Mensaje msg) {
+		Archivador archivadorSimple = new ArchivadorSimple(nombre, 1);
+		Assertions.assertThat(archivadorSimple.almacenarCorreo(msg)).isFalse();
+	}
+
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Valores frontera y Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param nombre Nombre dedl archivador
+	 * @param msg    Mensaje para almacecnar
+	 */
+	@Example
+	public void testAlmacenarCorreo(@ForAll("stringProvider") String nombre, @ForAll("mensajeProvider") Mensaje msg) {
+		Archivador archivadorSimple = new ArchivadorSimple(nombre, 10000);
+		Assertions.assertThat(archivadorSimple.almacenarCorreo(msg)).isTrue();
+	}
+
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Valores frontera y Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param nombre Nombre dedl archivador
+	 * @param msg    Mensaje para almacecnar
+	 */
+	@Property
+	public void testAlmacenarCorreoYBuscar(@ForAll("stringProvider") String nombre,
+			@ForAll("mensajeProvider") Mensaje msg) {
+		Archivador archivadorSimple = new ArchivadorSimple(nombre, 10000);
+		archivadorSimple.almacenarCorreo(msg);
+		Assertions.assertThat(archivadorSimple.obtenerEspacioDisponible())
+				.isEqualTo(archivadorSimple.obtenerEspacioTotal() - msg.obtenerTamaño());
 	}
 
 }

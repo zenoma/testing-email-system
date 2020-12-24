@@ -114,6 +114,23 @@ public class TestArchivo {
 	 * @param nombre    Nombre para construir un Imagen
 	 * @param contenido Contenido para construir un Imagen
 	 */
+	@Example
+	public void testObtenerTextoMimeType(@ForAll("strings") String nombre, @ForAll("strings") String contenido) {
+		texto = new Texto(nombre, contenido);
+		String expected = "text/plain";
+		Assertions.assertThat(texto.obtenerMimeType()).isEqualTo(expected);
+	}
+
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positivas
+	 * Selección de datos: Generación automática de datos
+	 * </pre>
+	 * 
+	 * @param nombre    Nombre para construir un Imagen
+	 * @param contenido Contenido para construir un Imagen
+	 */
 	@Property
 	public void testObtenerPreVisualizacion(@ForAll("strings") String nombre, @ForAll("strings") String contenido) {
 		texto = new Texto(nombre, contenido);
