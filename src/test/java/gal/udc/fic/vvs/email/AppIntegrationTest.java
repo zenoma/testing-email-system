@@ -211,7 +211,7 @@ public class AppIntegrationTest {
 			@ForAll("archivadorProvider") Archivador archivador) throws OperacionInvalida {
 		archivador.almacenarCorreo(carpeta);
 
-		Assertions.assertThat(archivador.obtenerEspacioTotal()).isNotZero();
+		Assertions.assertThat(archivador.obtenerEspacioTotal()).isNotNegative();
 	}
 
 	/**
