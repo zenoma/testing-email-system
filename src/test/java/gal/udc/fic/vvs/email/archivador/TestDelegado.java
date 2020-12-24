@@ -7,6 +7,7 @@ import gal.udc.fic.vvs.email.correo.Mensaje;
 import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.Combinators;
+import net.jqwik.api.Example;
 import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
 import net.jqwik.api.Provide;
@@ -29,7 +30,7 @@ public class TestDelegado {
 	@Provide
 	Arbitrary<ArchivadorSimple> archivadorProvider() {
 		String nombre = Arbitraries.strings().alpha().injectNull(0).sample();
-		int size = Arbitraries.integers().greaterOrEqual(0).sample();
+		int size = Arbitraries.integers().greaterOrEqual(0).injectNull(0).sample();
 		return Combinators.withBuilder(() -> new ArchivadorSimple(nombre, size)).build();
 	}
 
@@ -43,13 +44,11 @@ public class TestDelegado {
 	 * @param msg        Mensaje par almacenar
 	 * @param archivador Archivador para crear el delegado
 	 */
-	@Property
-	public void testAlmacenarCorreoYObtenerEspacioDisponible(@ForAll("mensajeProvider") Mensaje msg,
+	@Example
+	public void testObtenerNombre(@ForAll("mensajeProvider") Mensaje msg,
 			@ForAll("archivadorProvider") ArchivadorSimple archivador) {
 		Delegado delegado = new Delegado(archivador);
-		delegado.almacenarCorreo(msg);
-		Assertions.assertThat(delegado.obtenerEspacioDisponible())
-				.isEqualTo(delegado.obtenerEspacioTotal() - msg.obtenerTamaño());
+		Assertions.assertThat(delegado.obtenerNombre()).isEqualTo(archivador.obtenerNombre());
 	}
 
 	/**
@@ -100,6 +99,23 @@ public class TestDelegado {
 		Delegado delegadoPequeño = new Delegado(archivador);
 		delegadoPequeño.establecerDelegado(archivador);
 		Assertions.assertThat(delegadoPequeño.almacenarCorreo(msg)).isFalse();
+	}
+
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Valores frontera y Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param archivador Archivador para crear el delegado
+	 */
+	@Property
+	public void testAlmacenarCorreo(@ForAll("mensajeProvider") Mensaje msg) {
+		Archivador archivador = new ArchivadorSimple(Arbitraries.strings().alpha().sample(), 10000);
+		Delegado delegadoPequeño = new Delegado(archivador);
+		delegadoPequeño.establecerDelegado(archivador);
+		Assertions.assertThat(delegadoPequeño.almacenarCorreo(msg)).isTrue();
 	}
 
 }
