@@ -6,7 +6,7 @@ import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
-@AnalyzeClasses(packages = "gal.udc.fic.vvs.email.*")
+@AnalyzeClasses(packages = "gal.udc.fic.vvs.email")
 public class ReglasDependenciaTest {
 
 	@ArchTest
