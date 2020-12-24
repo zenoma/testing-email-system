@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>Mensaje.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package gal.udc.fic.vvs.email.correo;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collection;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Vector;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import etm.core.configuration.EtmManager;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import etm.core.monitor.EtmMonitor;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import etm.core.monitor.EtmPoint;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import gal.udc.fic.vvs.email.archivo.Texto;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class Mensaje extends MensajeAbstracto {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;private static final EtmMonitor etmMonitor = EtmManager.getEtmMonitor();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;public Mensaje(Texto contenido) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;_contenido = contenido;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;_leido = false;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void establecerLeido(boolean leido) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;_leido = leido;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public int obtenerNoLeidos() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_26'/>
+26
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_26'>1</a>
+<span>
+
+1. obtenerNoLeidos : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;if (_leido) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_27'/>
+27
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_27'>1</a>
+<span>
+
+1. obtenerNoLeidos : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;return 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;} else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_29'/>
+29
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_29'>1</a>
+<span>
+
+1. obtenerNoLeidos : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;return 1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public int obtenerTama&#195;&#177;o() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;EtmPoint point = etmMonitor.createPoint(&#34;Mensaje:obtenerTama&#195;&#177;o&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_37'/>
+37
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_37'>1</a>
+<span>
+
+1. obtenerTamaño : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;return _contenido.obtenerTama&#195;&#177;o();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;} finally {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_39'/>
+39
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_39'>1</a>
+<span>
+
+1. obtenerTamaño : removed call to etm/core/monitor/EtmPoint::collect &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;point.collect();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public Integer obtenerIcono() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_45'/>
+45
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_45'>1</a>
+<span>
+
+1. obtenerIcono : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;if (_leido) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_46'/>
+46
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_46'>1</a>
+<span>
+
+1. obtenerIcono : mutated return of Object value for gal/udc/fic/vvs/email/correo/Mensaje::obtenerIcono to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;return Correo.ICONO_MENSAJE;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;} else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_48'/>
+48
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_48'>1</a>
+<span>
+
+1. obtenerIcono : mutated return of Object value for gal/udc/fic/vvs/email/correo/Mensaje::obtenerIcono to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;return Correo.ICONO_NUEVO_MENSAJE;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public String obtenerPreVisualizacion() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;String visualizacion = obtenerVisualizacion();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_55'/>
+55
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_55'>1</a>
+<span>
+
+1. obtenerPreVisualizacion : mutated return of Object value for gal/udc/fic/vvs/email/correo/Mensaje::obtenerPreVisualizacion to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return visualizacion.substring(0, Math.min(visualizacion.length(), TAMA&#195;&#8216;O_PREVISUALIZACION)) + &#34;...&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public String obtenerVisualizacion() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_60'/>
+60
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_60'>1</a>
+<span>
+
+1. obtenerVisualizacion : mutated return of Object value for gal/udc/fic/vvs/email/correo/Mensaje::obtenerVisualizacion to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return _contenido.obtenerContenido();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public Collection buscar(String busqueda) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;EtmPoint point = etmMonitor.createPoint(&#34;Mensaje:buscar&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;&#9;Vector resultado = new Vector();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_69'/>
+69
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_69'>1</a>
+<span>
+
+1. buscar : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;if (obtenerVisualizacion().toLowerCase().matches(&#34;.*&#34; + busqueda.toLowerCase() + &#34;.*&#34;)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_70'/>
+70
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_70'>1</a>
+<span>
+
+1. buscar : removed call to java/util/Vector::addElement &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;resultado.addElement(this);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_72'/>
+72
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_72'>1</a>
+<span>
+
+1. buscar : mutated return of Object value for gal/udc/fic/vvs/email/correo/Mensaje::buscar to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;return resultado;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;} finally {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_74'/>
+74
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_74'>1</a>
+<span>
+
+1. buscar : removed call to etm/core/monitor/EtmPoint::collect &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;point.collect();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private final static int TAMA&#195;&#8216;O_PREVISUALIZACION = 32;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private boolean _leido;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private Texto _contenido;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6f5df147_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6f5df147_26'>26</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_26'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>obtenerNoLeidos<br/><b>Killed by : </b>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testEstablecerNoLeidoYObtenerNoLeidos(gal.udc.fic.vvs.email.correo.Mensaje)]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6f5df147_27'>27</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_27'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>obtenerNoLeidos<br/><b>Killed by : </b>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testEstablecerLeidoYObtenerNoLeidos(gal.udc.fic.vvs.email.correo.Mensaje)]</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6f5df147_29'>29</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_29'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>obtenerNoLeidos<br/><b>Killed by : </b>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testEstablecerNoLeidoYObtenerNoLeidos(gal.udc.fic.vvs.email.correo.Mensaje)]</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6f5df147_37'>37</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_37'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>obtenerTamaño<br/><b>Killed by : </b>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testObtenerTamaño(gal.udc.fic.vvs.email.correo.Mensaje)]</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6f5df147_39'>39</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_39'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>obtenerTamaño<br/><b>Killed by : </b>none</span></span> removed call to etm/core/monitor/EtmPoint::collect &rarr; SURVIVED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6f5df147_45'>45</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_45'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>obtenerIcono<br/><b>Killed by : </b>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testObtenerIconoNuevoMensaje(gal.udc.fic.vvs.email.correo.Mensaje)]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6f5df147_46'>46</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_46'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>obtenerIcono<br/><b>Killed by : </b>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testObtenerIconoMensaje(gal.udc.fic.vvs.email.correo.Mensaje)]</span></span> mutated return of Object value for gal/udc/fic/vvs/email/correo/Mensaje::obtenerIcono to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6f5df147_48'>48</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_48'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>obtenerIcono<br/><b>Killed by : </b>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testObtenerIconoNuevoMensaje(gal.udc.fic.vvs.email.correo.Mensaje)]</span></span> mutated return of Object value for gal/udc/fic/vvs/email/correo/Mensaje::obtenerIcono to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6f5df147_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_55'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>obtenerPreVisualizacion<br/><b>Killed by : </b>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testObtenerPreVisualizacion(gal.udc.fic.vvs.email.correo.Mensaje)]</span></span> mutated return of Object value for gal/udc/fic/vvs/email/correo/Mensaje::obtenerPreVisualizacion to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6f5df147_60'>60</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_60'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>obtenerVisualizacion<br/><b>Killed by : </b>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testBuscarSinResultado(gal.udc.fic.vvs.email.correo.Mensaje)]</span></span> mutated return of Object value for gal/udc/fic/vvs/email/correo/Mensaje::obtenerVisualizacion to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6f5df147_69'>69</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_69'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buscar<br/><b>Killed by : </b>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testBuscarSinResultado(gal.udc.fic.vvs.email.correo.Mensaje)]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6f5df147_70'>70</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_70'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buscar<br/><b>Killed by : </b>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testBuscar(gal.udc.fic.vvs.email.correo.Mensaje)]</span></span> removed call to java/util/Vector::addElement &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6f5df147_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_72'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buscar<br/><b>Killed by : </b>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testBuscarSinResultado(gal.udc.fic.vvs.email.correo.Mensaje)]</span></span> mutated return of Object value for gal/udc/fic/vvs/email/correo/Mensaje::buscar to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6f5df147_74'>74</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6f5df147_74'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buscar<br/><b>Killed by : </b>none</span></span> removed call to etm/core/monitor/EtmPoint::collect &rarr; SURVIVED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+
+<li class='mutator'>MATH_MUTATOR</li>
+
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>gal.udc.fic.vvs.email.correo.TestCarpetaLimitada.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpetaLimitada]/[property:testEliminarCorreoDeCarpeta(gal.udc.fic.vvs.email.correo.Mensaje)] (13 ms)</li><li>gal.udc.fic.vvs.email.correo.TestReenvio.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestReenvio]/[property:testObtenerTamaño(gal.udc.fic.vvs.email.archivo.Texto, gal.udc.fic.vvs.email.archivo.Texto)] (259 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpetaLimitada.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpetaLimitada]/[property:testObtenerPreVisualización(gal.udc.fic.vvs.email.correo.Mensaje)] (15 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpeta.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpeta]/[property:testEstablecerCarpetaLeida(gal.udc.fic.vvs.email.correo.Carpeta)] (12 ms)</li><li>gal.udc.fic.vvs.email.archivador.TestArchivadorSimple.[engine:jqwik]/[class:gal.udc.fic.vvs.email.archivador.TestArchivadorSimple]/[property:testAlmacenarCorreoYBuscar(java.lang.String, gal.udc.fic.vvs.email.correo.Mensaje)] (224 ms)</li><li>gal.udc.fic.vvs.email.AppIntegrationTest.[engine:jqwik]/[class:gal.udc.fic.vvs.email.AppIntegrationTest]/[property:testTamañoNotEmpty(gal.udc.fic.vvs.email.correo.Carpeta)] (21 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpetaLimitada.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpetaLimitada]/[property:testExplorarCarpetaVacia(gal.udc.fic.vvs.email.correo.Mensaje)] (12 ms)</li><li>gal.udc.fic.vvs.email.archivador.TestArchivadorSimple.[engine:jqwik]/[class:gal.udc.fic.vvs.email.archivador.TestArchivadorSimple]/[property:testAlmacenarCorreoYObtenerEspacioDisponible(java.lang.String, java.lang.Integer)] (172 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpeta.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpeta]/[property:testExplorarCarpetaVacia(gal.udc.fic.vvs.email.correo.Mensaje)] (13 ms)</li><li>jetm.JetmRunTest.[engine:junit-jupiter]/[class:jetm.JetmRunTest]/[method:appRunTest()] (21 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCabecera.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCabecera]/[property:testObtenerTamañoCabeceraVacio()] (9 ms)</li><li>gal.udc.fic.vvs.email.archivador.TestArchivadorSimple.[engine:jqwik]/[class:gal.udc.fic.vvs.email.archivador.TestArchivadorSimple]/[property:testNoAlmacenarCorreoSinEspacioSuficiente(java.lang.String, gal.udc.fic.vvs.email.correo.Mensaje)] (15 ms)</li><li>gal.udc.fic.vvs.email.AppIntegrationTest.[engine:jqwik]/[class:gal.udc.fic.vvs.email.AppIntegrationTest]/[property:testBuscarTodosLosCorreos(gal.udc.fic.vvs.email.correo.Carpeta)] (16 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCabecera.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCabecera]/[property:testObtenerTamaño(gal.udc.fic.vvs.email.correo.Mensaje, java.lang.String, java.lang.String)] (180 ms)</li><li>gal.udc.fic.vvs.email.correo.TestAdjunto.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestAdjunto]/[property:testObtenerIconoAdjunto(gal.udc.fic.vvs.email.correo.Adjunto)] (230 ms)</li><li>gal.udc.fic.vvs.email.correo.TestReenvio.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestReenvio]/[property:testObtenerTamañoReenvioVacio()] (9 ms)</li><li>gal.udc.fic.vvs.email.correo.TestReenvio.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestReenvio]/[property:testObtenerVisualizacionReenvioVacio()] (8 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpetaLimitada.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpetaLimitada]/[property:testObtenerVisualización(gal.udc.fic.vvs.email.correo.Mensaje, gal.udc.fic.vvs.email.correo.Mensaje)] (13 ms)</li><li>gal.udc.fic.vvs.email.correo.TestAdjunto.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestAdjunto]/[property:testObtenerIconoNuevoMensaje(gal.udc.fic.vvs.email.correo.Adjunto)] (241 ms)</li><li>gal.udc.fic.vvs.email.correo.TestAdjunto.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestAdjunto]/[property:testEstablecerLeidoYObtenerNoLeidos(gal.udc.fic.vvs.email.correo.Adjunto)] (238 ms)</li><li>gal.udc.fic.vvs.email.archivador.TestDelegado.[engine:jqwik]/[class:gal.udc.fic.vvs.email.archivador.TestDelegado]/[property:testNoAlmacenarCorreo(gal.udc.fic.vvs.email.correo.Mensaje)] (15 ms)</li><li>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testObtenerTamaño(gal.udc.fic.vvs.email.correo.Mensaje)] (13 ms)</li><li>gal.udc.fic.vvs.email.AppIntegrationTest.[engine:jqwik]/[class:gal.udc.fic.vvs.email.AppIntegrationTest]/[property:testCrearCarpetaConCorreos(gal.udc.fic.vvs.email.correo.Carpeta)] (19 ms)</li><li>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testEstablecerLeidoYObtenerNoLeidos(gal.udc.fic.vvs.email.correo.Mensaje)] (15 ms)</li><li>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testBuscar(gal.udc.fic.vvs.email.correo.Mensaje)] (10 ms)</li><li>gal.udc.fic.vvs.email.archivador.TestArchivadorSimple.[engine:jqwik]/[class:gal.udc.fic.vvs.email.archivador.TestArchivadorSimple]/[property:testAlmacenarCorreo(java.lang.String, gal.udc.fic.vvs.email.correo.Mensaje)] (18 ms)</li><li>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testObtenerIconoMensaje(gal.udc.fic.vvs.email.correo.Mensaje)] (11 ms)</li><li>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testObtenerPreVisualizacion(gal.udc.fic.vvs.email.correo.Mensaje)] (15 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpeta.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpeta]/[property:testObtenerTamaño(gal.udc.fic.vvs.email.correo.Mensaje, gal.udc.fic.vvs.email.correo.Mensaje)] (13 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpeta.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpeta]/[property:testAñadirCorreoYBuscarCorreo(gal.udc.fic.vvs.email.correo.Mensaje)] (12 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpeta.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpeta]/[property:testObtenerVisualización(gal.udc.fic.vvs.email.correo.Mensaje, gal.udc.fic.vvs.email.correo.Mensaje)] (12 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpeta.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpeta]/[property:testMoverCorreoDeCarpeta(gal.udc.fic.vvs.email.correo.Mensaje)] (14 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpetaLimitada.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpetaLimitada]/[property:testEstablecerCarpetaLeida(gal.udc.fic.vvs.email.correo.Carpeta)] (11 ms)</li><li>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testBuscarSinResultado(gal.udc.fic.vvs.email.correo.Mensaje)] (9 ms)</li><li>gal.udc.fic.vvs.email.correo.TestAdjunto.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestAdjunto]/[property:testObtenerVisualizacion(gal.udc.fic.vvs.email.correo.Mensaje, gal.udc.fic.vvs.email.archivo.Archivo)] (257 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpetaLimitada.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpetaLimitada]/[property:testAñadirCorreoYBuscarCorreo(gal.udc.fic.vvs.email.correo.Mensaje)] (12 ms)</li><li>gal.udc.fic.vvs.email.correo.TestAdjunto.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestAdjunto]/[property:testBuscarSinResultado(gal.udc.fic.vvs.email.archivo.Texto, gal.udc.fic.vvs.email.archivo.Archivo)] (17 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpetaLimitada.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpetaLimitada]/[property:testObtenerRuta(gal.udc.fic.vvs.email.correo.Carpeta)] (15 ms)</li><li>gal.udc.fic.vvs.email.correo.TestAdjunto.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestAdjunto]/[property:testEstablecerNoLeidoYObtenerNoLeidos(gal.udc.fic.vvs.email.correo.Adjunto)] (248 ms)</li><li>gal.udc.fic.vvs.email.correo.TestAdjunto.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestAdjunto]/[property:testObtenerPreVisualizacion(gal.udc.fic.vvs.email.correo.Adjunto)] (269 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpetaLimitada.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpetaLimitada]/[property:testObtenerTamaño(gal.udc.fic.vvs.email.correo.Mensaje, gal.udc.fic.vvs.email.correo.Mensaje)] (17 ms)</li><li>gal.udc.fic.vvs.email.archivador.TestArchivadorSimple.[engine:jqwik]/[class:gal.udc.fic.vvs.email.archivador.TestArchivadorSimple]/[property:testNoAlmacenarCorreoArchivadorSinEspacio(java.lang.String, gal.udc.fic.vvs.email.correo.Mensaje)] (16 ms)</li><li>gal.udc.fic.vvs.email.correo.TestAdjunto.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestAdjunto]/[property:testObtenerVisualizacionAdjuntoVacio()] (10 ms)</li><li>gal.udc.fic.vvs.email.correo.TestReenvio.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestReenvio]/[property:testObtenerVisualizacion(gal.udc.fic.vvs.email.archivo.Texto, gal.udc.fic.vvs.email.archivo.Texto)] (180 ms)</li><li>gal.udc.fic.vvs.email.AppIntegrationTest.[engine:jqwik]/[class:gal.udc.fic.vvs.email.AppIntegrationTest]/[property:testLlenarDecorador(gal.udc.fic.vvs.email.correo.Carpeta, gal.udc.fic.vvs.email.archivador.Archivador)] (22 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCabecera.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCabecera]/[property:testObtenerVisualizacionCabeceraVacio()] (9 ms)</li><li>gal.udc.fic.vvs.email.archivador.TestLog.[engine:jqwik]/[class:gal.udc.fic.vvs.email.archivador.TestLog]/[property:testNoAlmacenarCorreo(gal.udc.fic.vvs.email.correo.Mensaje)] (13 ms)</li><li>gal.udc.fic.vvs.email.correo.TestAdjunto.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestAdjunto]/[property:testObtenerRuta(gal.udc.fic.vvs.email.correo.Mensaje, gal.udc.fic.vvs.email.archivo.Archivo)] (259 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpeta.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpeta]/[property:testObtenerPreVisualización(gal.udc.fic.vvs.email.correo.Mensaje)] (16 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpetaLimitada.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpetaLimitada]/[property:testObtenerNoLeidos(gal.udc.fic.vvs.email.correo.Mensaje, gal.udc.fic.vvs.email.correo.Mensaje)] (15 ms)</li><li>gal.udc.fic.vvs.email.AppIntegrationTest.[engine:jqwik]/[class:gal.udc.fic.vvs.email.AppIntegrationTest]/[property:testDecoradorNoVacio(gal.udc.fic.vvs.email.correo.Carpeta, gal.udc.fic.vvs.email.archivador.Archivador)] (27 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpeta.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpeta]/[property:testEliminarCorreoDeCarpeta(gal.udc.fic.vvs.email.correo.Mensaje)] (12 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpeta.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpeta]/[property:testExplorarCarpetaConElementos()] (25 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCabecera.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCabecera]/[property:testObtenerVisualizacion(gal.udc.fic.vvs.email.correo.Mensaje, java.lang.String, java.lang.String)] (140 ms)</li><li>gal.udc.fic.vvs.email.archivador.TestDelegado.[engine:jqwik]/[class:gal.udc.fic.vvs.email.archivador.TestDelegado]/[property:testAlmacenarCorreo(gal.udc.fic.vvs.email.correo.Mensaje)] (11 ms)</li><li>gal.udc.fic.vvs.email.archivador.TestLog.[engine:jqwik]/[class:gal.udc.fic.vvs.email.archivador.TestLog]/[property:testAlmacenarCorreoYObtenerEspacioDisponible(java.lang.String, java.lang.Integer)] (27 ms)</li><li>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testObtenerIconoNuevoMensaje(gal.udc.fic.vvs.email.correo.Mensaje)] (10 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpeta.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpeta]/[property:testObtenerNoLeidos(gal.udc.fic.vvs.email.correo.Mensaje, gal.udc.fic.vvs.email.correo.Mensaje)] (15 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpetaLimitada.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpetaLimitada]/[property:testExplorarCarpetaConElementos()] (15 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpetaLimitada.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpetaLimitada]/[property:testMoverCorreoDeCarpeta(gal.udc.fic.vvs.email.correo.Mensaje)] (12 ms)</li><li>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testEstablecerNoLeidoYObtenerNoLeidos(gal.udc.fic.vvs.email.correo.Mensaje)] (10 ms)</li><li>gal.udc.fic.vvs.email.correo.TestAdjunto.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestAdjunto]/[property:testBuscar(gal.udc.fic.vvs.email.archivo.Texto, gal.udc.fic.vvs.email.archivo.Archivo)] (314 ms)</li><li>gal.udc.fic.vvs.email.correo.TestAdjunto.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestAdjunto]/[property:testObtenerTamaño(gal.udc.fic.vvs.email.correo.Mensaje, gal.udc.fic.vvs.email.archivo.Archivo)] (257 ms)</li><li>gal.udc.fic.vvs.email.correo.TestMensaje.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestMensaje]/[property:testObtenerVisualizacion(gal.udc.fic.vvs.email.correo.Mensaje)] (17 ms)</li><li>gal.udc.fic.vvs.email.AppIntegrationTest.[engine:jqwik]/[class:gal.udc.fic.vvs.email.AppIntegrationTest]/[property:testMarcarCarpetaLeida(gal.udc.fic.vvs.email.correo.Carpeta)] (18 ms)</li><li>gal.udc.fic.vvs.email.correo.TestAdjunto.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestAdjunto]/[property:testObtenerTamañoAdjuntoVacio()] (12 ms)</li><li>gal.udc.fic.vvs.email.correo.TestCarpetaLimitada.[engine:jqwik]/[class:gal.udc.fic.vvs.email.correo.TestCarpetaLimitada]/[property:testAñadirCorreoYBuscarCorreoCarpetaVacia(gal.udc.fic.vvs.email.correo.Mensaje)] (9 ms)</li><li>gal.udc.fic.vvs.email.AppIntegrationTest.[engine:jqwik]/[class:gal.udc.fic.vvs.email.AppIntegrationTest]/[property:testCrearCarpetaYObtenerRuta(gal.udc.fic.vvs.email.correo.Carpeta)] (17 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.4.9
+
+</body>
+</html>

@@ -218,7 +218,7 @@ public class TestCarpeta {
 			throws OperacionInvalida {
 		carpetaImportantes.añadir(msg);
 		carpetaImportantes.añadir(msg2);
-		Assertions.assertThat(carpetaImportantes.obtenerTamaño()).isNotZero();
+		Assertions.assertThat(carpetaImportantes.obtenerTamaño()).isPositive();
 
 	}
 
