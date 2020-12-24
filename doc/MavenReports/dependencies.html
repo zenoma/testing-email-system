@@ -56,7 +56,29 @@ FICmail
       <div id="contentBox">
 <a name="Project_Dependencies"></a>
 <div class="section">
-<h2><a name="Project_Dependencies"></a>Project Dependencies</h2><a name="Project_Dependencies_test"></a>
+<h2><a name="Project_Dependencies"></a>Project Dependencies</h2><a name="Project_Dependencies_compile"></a>
+<div class="section">
+<h3><a name="compile"></a>compile</h3>
+<p>The following is a list of compile dependencies for this project. These dependencies are required to compile and run the application:</p>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>GroupId</th>
+<th>ArtifactId</th>
+<th>Version</th>
+<th>Type</th>
+<th>Licenses</th></tr>
+<tr class="b">
+<td>org.slf4j</td>
+<td><a class="externalLink" href="http://www.slf4j.org">slf4j-api</a></td>
+<td>1.7.30</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT License</a></td></tr>
+<tr class="a">
+<td>org.slf4j</td>
+<td><a class="externalLink" href="http://www.slf4j.org">slf4j-simple</a></td>
+<td>1.7.30</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT License</a></td></tr></table></div><a name="Project_Dependencies_test"></a>
 <div class="section">
 <h3><a name="test"></a>test</h3>
 <p>The following is a list of test dependencies for this project. These dependencies are only required to compile and run unit tests for the application:</p>
@@ -68,24 +90,30 @@ FICmail
 <th>Type</th>
 <th>Licenses</th></tr>
 <tr class="b">
+<td>com.tngtech.archunit</td>
+<td><a class="externalLink" href="https://github.com/TNG/ArchUnit">archunit-junit5</a></td>
+<td>0.14.1</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></td></tr>
+<tr class="a">
 <td>net.jqwik</td>
 <td><a class="externalLink" href="https://jqwik.net/">jqwik</a></td>
 <td>1.3.9</td>
 <td>jar</td>
 <td><a class="externalLink" href="http://www.eclipse.org/legal/epl-v20.html">Eclipse Public License - v 2.0</a></td></tr>
-<tr class="a">
+<tr class="b">
 <td>org.assertj</td>
 <td><a class="externalLink" href="http://assertj.org/assertj-core">assertj-core</a></td>
 <td>3.16.1</td>
 <td>jar</td>
 <td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a></td></tr>
-<tr class="b">
+<tr class="a">
 <td>org.junit.jupiter</td>
 <td><a class="externalLink" href="https://junit.org/junit5/">junit-jupiter</a></td>
 <td>5.6.2</td>
 <td>jar</td>
 <td><a class="externalLink" href="https://www.eclipse.org/legal/epl-v20.html">Eclipse Public License v2.0</a></td></tr>
-<tr class="a">
+<tr class="b">
 <td>org.junit.vintage</td>
 <td><a class="externalLink" href="https://junit.org/junit5/">junit-vintage-engine</a></td>
 <td>5.6.2</td>
@@ -104,6 +132,30 @@ FICmail
 <th>Version</th>
 <th>Type</th>
 <th>Licenses</th></tr>
+<tr class="b">
+<td>com.tngtech.archunit</td>
+<td><a class="externalLink" href="https://github.com/TNG/ArchUnit">archunit</a></td>
+<td>0.14.1</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a><a class="externalLink" href="http://asm.ow2.io/license.html">BSD</a></td></tr>
+<tr class="a">
+<td>com.tngtech.archunit</td>
+<td><a class="externalLink" href="https://github.com/TNG/ArchUnit">archunit-junit5-api</a></td>
+<td>0.14.1</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></td></tr>
+<tr class="b">
+<td>com.tngtech.archunit</td>
+<td><a class="externalLink" href="https://github.com/TNG/ArchUnit">archunit-junit5-engine</a></td>
+<td>0.14.1</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></td></tr>
+<tr class="a">
+<td>com.tngtech.archunit</td>
+<td><a class="externalLink" href="https://github.com/TNG/ArchUnit">archunit-junit5-engine-api</a></td>
+<td>0.14.1</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></td></tr>
 <tr class="b">
 <td>junit</td>
 <td><a class="externalLink" href="http://junit.org">junit</a></td>
@@ -344,16 +396,85 @@ FICmail
 <td>
 <p><b>Description: </b>Rich and fluent assertions for testing for Java</p>
 <p><b>URL: </b><a class="externalLink" href="http://assertj.org/assertj-core">http://assertj.org/assertj-core</a></p>
-<p><b>Project Licenses: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a></p></td></tr></table></div></li></ul></li></ul></div></div><a name="Licenses"></a>
+<p><b>Project Licenses: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a></p></td></tr></table></div></li>
+<li>com.tngtech.archunit:archunit-junit5:jar:0.14.1 (test) <img id="_img33" src="./images/icon_info_sml.gif" alt="[Information]" onclick="toggleDependencyDetails( '_dep32', '_img33' );" style="cursor: pointer; vertical-align: text-bottom;"></img><div id="_dep32" style="display:none">
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>ArchUnit</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>A Java architecture test library, to specify and assert architecture rules in plain Java - Module 'archunit-junit5'</p>
+<p><b>URL: </b><a class="externalLink" href="https://github.com/TNG/ArchUnit">https://github.com/TNG/ArchUnit</a></p>
+<p><b>Project Licenses: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></p></td></tr></table></div>
+<ul>
+<li>com.tngtech.archunit:archunit-junit5-api:jar:0.14.1 (test) <img id="_img35" src="./images/icon_info_sml.gif" alt="[Information]" onclick="toggleDependencyDetails( '_dep34', '_img35' );" style="cursor: pointer; vertical-align: text-bottom;"></img><div id="_dep34" style="display:none">
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>ArchUnit</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>A Java architecture test library, to specify and assert architecture rules in plain Java - Module 'archunit-junit5-api'</p>
+<p><b>URL: </b><a class="externalLink" href="https://github.com/TNG/ArchUnit">https://github.com/TNG/ArchUnit</a></p>
+<p><b>Project Licenses: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></p></td></tr></table></div>
+<ul>
+<li>com.tngtech.archunit:archunit:jar:0.14.1 (test) <img id="_img37" src="./images/icon_info_sml.gif" alt="[Information]" onclick="toggleDependencyDetails( '_dep36', '_img37' );" style="cursor: pointer; vertical-align: text-bottom;"></img><div id="_dep36" style="display:none">
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>ArchUnit</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>A Java architecture test library, to specify and assert architecture rules in plain Java - Module 'archunit'</p>
+<p><b>URL: </b><a class="externalLink" href="https://github.com/TNG/ArchUnit">https://github.com/TNG/ArchUnit</a></p>
+<p><b>Project Licenses: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a>, <a class="externalLink" href="http://asm.ow2.io/license.html">BSD</a></p></td></tr></table></div></li></ul></li>
+<li>com.tngtech.archunit:archunit-junit5-engine:jar:0.14.1 (test) <img id="_img39" src="./images/icon_info_sml.gif" alt="[Information]" onclick="toggleDependencyDetails( '_dep38', '_img39' );" style="cursor: pointer; vertical-align: text-bottom;"></img><div id="_dep38" style="display:none">
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>ArchUnit</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>A Java architecture test library, to specify and assert architecture rules in plain Java - Module 'archunit-junit5-engine'</p>
+<p><b>URL: </b><a class="externalLink" href="https://github.com/TNG/ArchUnit">https://github.com/TNG/ArchUnit</a></p>
+<p><b>Project Licenses: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></p></td></tr></table></div>
+<ul>
+<li>com.tngtech.archunit:archunit-junit5-engine-api:jar:0.14.1 (test) <img id="_img41" src="./images/icon_info_sml.gif" alt="[Information]" onclick="toggleDependencyDetails( '_dep40', '_img41' );" style="cursor: pointer; vertical-align: text-bottom;"></img><div id="_dep40" style="display:none">
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>ArchUnit</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>A Java architecture test library, to specify and assert architecture rules in plain Java - Module 'archunit-junit5-engine-api'</p>
+<p><b>URL: </b><a class="externalLink" href="https://github.com/TNG/ArchUnit">https://github.com/TNG/ArchUnit</a></p>
+<p><b>Project Licenses: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></p></td></tr></table></div></li></ul></li></ul></li>
+<li>org.slf4j:slf4j-api:jar:1.7.30 (compile) <img id="_img43" src="./images/icon_info_sml.gif" alt="[Information]" onclick="toggleDependencyDetails( '_dep42', '_img43' );" style="cursor: pointer; vertical-align: text-bottom;"></img><div id="_dep42" style="display:none">
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>SLF4J API Module</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>The slf4j API</p>
+<p><b>URL: </b><a class="externalLink" href="http://www.slf4j.org">http://www.slf4j.org</a></p>
+<p><b>Project Licenses: </b><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT License</a></p></td></tr></table></div></li>
+<li>org.slf4j:slf4j-simple:jar:1.7.30 (compile) <img id="_img45" src="./images/icon_info_sml.gif" alt="[Information]" onclick="toggleDependencyDetails( '_dep44', '_img45' );" style="cursor: pointer; vertical-align: text-bottom;"></img><div id="_dep44" style="display:none">
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>SLF4J Simple Binding</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>SLF4J Simple binding</p>
+<p><b>URL: </b><a class="externalLink" href="http://www.slf4j.org">http://www.slf4j.org</a></p>
+<p><b>Project Licenses: </b><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT License</a></p></td></tr></table></div></li></ul></li></ul></div></div><a name="Licenses"></a>
 <div class="section">
 <h2><a name="Licenses"></a>Licenses</h2>
+<p><b>BSD: </b>ArchUnit</p>
 <p><b>Unknown: </b>FICmail</p>
 <p><b>The Apache License, Version 2.0: </b>org.apiguardian:apiguardian-api, org.opentest4j:opentest4j</p>
 <p><b>Eclipse Public License 1.0: </b>JUnit</p>
+<p><b>MIT License: </b>SLF4J API Module, SLF4J Simple Binding</p>
 <p><b>Eclipse Public License v2.0: </b>JUnit Jupiter (Aggregator), JUnit Jupiter API, JUnit Jupiter Engine, JUnit Jupiter Params, JUnit Platform Commons, JUnit Platform Engine API, JUnit Vintage Engine</p>
 <p><b>Apache License, Version 2.0: </b>AssertJ fluent assertions</p>
 <p><b>Eclipse Public License - v 2.0: </b>jqwik, jqwik-api, jqwik-engine</p>
-<p><b>New BSD License: </b>Hamcrest Core</p></div><a name="Dependency_File_Details"></a>
+<p><b>New BSD License: </b>Hamcrest Core</p>
+<p><b>The Apache Software License, Version 2.0: </b>ArchUnit</p></div><a name="Dependency_File_Details"></a>
 <div class="section">
 <h2><a name="Dependency_File_Details"></a>Dependency File Details</h2>
 <table border="0" class="bodyTable">
@@ -366,6 +487,46 @@ FICmail
 <th>Java Version</th>
 <th title="Indicates whether these dependencies have been compiled with debug information.">Debug Information</th></tr>
 <tr class="b">
+<td>archunit-0.14.1.jar</td>
+<td>3.6 MB</td>
+<td>2695</td>
+<td>2641</td>
+<td>37</td>
+<td>-</td>
+<td>Yes</td></tr>
+<tr class="a">
+<td>archunit-junit5-0.14.1.jar</td>
+<td>0.5 kB</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>-</td>
+<td>No</td></tr>
+<tr class="b">
+<td>archunit-junit5-api-0.14.1.jar</td>
+<td>5.7 kB</td>
+<td>14</td>
+<td>8</td>
+<td>1</td>
+<td>1.8</td>
+<td>Yes</td></tr>
+<tr class="a">
+<td>archunit-junit5-engine-0.14.1.jar</td>
+<td>52 kB</td>
+<td>48</td>
+<td>40</td>
+<td>1</td>
+<td>1.8</td>
+<td>Yes</td></tr>
+<tr class="b">
+<td>archunit-junit5-engine-api-0.14.1.jar</td>
+<td>4.3 kB</td>
+<td>8</td>
+<td>2</td>
+<td>1</td>
+<td>1.8</td>
+<td>Yes</td></tr>
+<tr class="a">
 <td>junit-4.13.jar</td>
 <td>381.8 kB</td>
 <td>387</td>
@@ -373,7 +534,7 @@ FICmail
 <td>32</td>
 <td>1.5</td>
 <td>Yes</td></tr>
-<tr class="a">
+<tr class="b">
 <td>jqwik-1.3.9.jar</td>
 <td>0.3 kB</td>
 <td>2</td>
@@ -381,7 +542,7 @@ FICmail
 <td>0</td>
 <td>-</td>
 <td>No</td></tr>
-<tr class="b">
+<tr class="a">
 <td>jqwik-api-1.3.9.jar</td>
 <td>226 kB</td>
 <td>246</td>
@@ -389,7 +550,7 @@ FICmail
 <td>9</td>
 <td>1.8</td>
 <td>Yes</td></tr>
-<tr class="a">
+<tr class="b">
 <td>jqwik-engine-1.3.9.jar</td>
 <td>644.6 kB</td>
 <td>438</td>
@@ -397,7 +558,7 @@ FICmail
 <td>24</td>
 <td>1.8</td>
 <td>Yes</td></tr>
-<tr class="b">
+<tr class="a">
 <td>apiguardian-api-1.1.0.jar</td>
 <td>2.4 kB</td>
 <td>8</td>
@@ -405,7 +566,7 @@ FICmail
 <td>2</td>
 <td>-</td>
 <td>Yes</td></tr>
-<tr class="a">
+<tr class="b">
 <td>assertj-core-3.16.1.jar</td>
 <td>4.7 MB</td>
 <td>3215</td>
@@ -413,7 +574,7 @@ FICmail
 <td>61</td>
 <td>-</td>
 <td>Yes</td></tr>
-<tr class="b">
+<tr class="a">
 <td>hamcrest-core-1.3.jar</td>
 <td>45 kB</td>
 <td>52</td>
@@ -421,7 +582,7 @@ FICmail
 <td>3</td>
 <td>1.5</td>
 <td>Yes</td></tr>
-<tr class="a">
+<tr class="b">
 <td>junit-jupiter-5.6.2.jar</td>
 <td>6.4 kB</td>
 <td>5</td>
@@ -429,7 +590,7 @@ FICmail
 <td>1</td>
 <td>-</td>
 <td>No</td></tr>
-<tr class="b">
+<tr class="a">
 <td>junit-jupiter-api-5.6.2.jar</td>
 <td>154 kB</td>
 <td>150</td>
@@ -437,7 +598,7 @@ FICmail
 <td>8</td>
 <td>-</td>
 <td>Yes</td></tr>
-<tr class="a">
+<tr class="b">
 <td>junit-jupiter-engine-5.6.2.jar</td>
 <td>209.3 kB</td>
 <td>130</td>
@@ -445,7 +606,7 @@ FICmail
 <td>9</td>
 <td>-</td>
 <td>Yes</td></tr>
-<tr class="b">
+<tr class="a">
 <td>junit-jupiter-params-5.6.2.jar</td>
 <td>562.3 kB</td>
 <td>370</td>
@@ -453,7 +614,7 @@ FICmail
 <td>22</td>
 <td>-</td>
 <td>Yes</td></tr>
-<tr class="a">
+<tr class="b">
 <td>junit-platform-commons-1.6.2.jar</td>
 <td>96.7 kB</td>
 <td>61</td>
@@ -461,7 +622,7 @@ FICmail
 <td>7</td>
 <td>-</td>
 <td>Yes</td></tr>
-<tr class="b">
+<tr class="a">
 <td>junit-platform-engine-1.6.2.jar</td>
 <td>174.1 kB</td>
 <td>139</td>
@@ -469,7 +630,7 @@ FICmail
 <td>9</td>
 <td>-</td>
 <td>Yes</td></tr>
-<tr class="a">
+<tr class="b">
 <td>junit-vintage-engine-5.6.2.jar</td>
 <td>63.8 kB</td>
 <td>47</td>
@@ -477,7 +638,7 @@ FICmail
 <td>6</td>
 <td>-</td>
 <td>Yes</td></tr>
-<tr class="b">
+<tr class="a">
 <td>opentest4j-1.2.0.jar</td>
 <td>7.7 kB</td>
 <td>11</td>
@@ -485,7 +646,23 @@ FICmail
 <td>2</td>
 <td>-</td>
 <td>Yes</td></tr>
+<tr class="b">
+<td>slf4j-api-1.7.30.jar</td>
+<td>41.5 kB</td>
+<td>46</td>
+<td>34</td>
+<td>4</td>
+<td>1.5</td>
+<td>Yes</td></tr>
 <tr class="a">
+<td>slf4j-simple-1.7.30.jar</td>
+<td>15.2 kB</td>
+<td>20</td>
+<td>10</td>
+<td>1</td>
+<td>1.5</td>
+<td>Yes</td></tr>
+<tr class="b">
 <th>Total</th>
 <th>Size</th>
 <th>Entries</th>
@@ -493,22 +670,30 @@ FICmail
 <th>Packages</th>
 <th>Java Version</th>
 <th>Debug Information</th></tr>
-<tr class="b">
-<td>15</td>
-<td>7.3 MB</td>
-<td>5261</td>
-<td>4936</td>
-<td>195</td>
-<td>1.8</td>
-<td>13</td></tr>
 <tr class="a">
-<td>test: 15</td>
-<td>test: 7.3 MB</td>
-<td>test: 5261</td>
-<td>test: 4936</td>
-<td>test: 195</td>
+<td>22</td>
+<td>11 MB</td>
+<td>8094</td>
+<td>7671</td>
+<td>240</td>
+<td>1.8</td>
+<td>19</td></tr>
+<tr class="b">
+<td>compile: 2</td>
+<td>compile: 56.7 kB</td>
+<td>compile: 66</td>
+<td>compile: 44</td>
+<td>compile: 5</td>
 <td>-</td>
-<td>test: 13</td></tr></table></div>
+<td>compile: 2</td></tr>
+<tr class="a">
+<td>test: 20</td>
+<td>test: 11 MB</td>
+<td>test: 8028</td>
+<td>test: 7627</td>
+<td>test: 235</td>
+<td>-</td>
+<td>test: 17</td></tr></table></div>
       </div>
     </div>
     <div class="clear">
