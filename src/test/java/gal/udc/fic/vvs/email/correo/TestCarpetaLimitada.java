@@ -44,6 +44,24 @@ public class TestCarpetaLimitada {
 		}).build();
 	}
 
+	@Provide
+	Arbitrary<CarpetaLimitada> carpetaLimitadaProvider() {
+		return Combinators.withBuilder(() -> {
+			CarpetaLimitada carpeta = new CarpetaLimitada(carpetaProvider().sample(),
+					Arbitraries.integers().between(1, 5).sample());
+			for (int i = 0; i < Arbitraries.integers().between(1, 5).sample(); i++) {
+				Mensaje msg = mensajeProvider().sample();
+				try {
+					msg.establecerLeido(Arbitraries.forType(Boolean.class).sample());
+					carpeta.añadir(msg);
+				} catch (OperacionInvalida e) {
+					e.printStackTrace();
+				}
+			}
+			return carpeta;
+		}).build();
+	}
+
 	@BeforeProperty
 	@BeforeExample
 	public void setUpTest() {
@@ -165,9 +183,30 @@ public class TestCarpetaLimitada {
 	 * @throws OperacionInvalida Operación no soportada
 	 */
 	@Property
-	public void testExplorarCarpetaVacia(@ForAll("mensajeProvider") Mensaje msg) throws OperacionInvalida {
+	public void testBuscarCarpetaVacia(@ForAll("mensajeProvider") Mensaje msg) throws OperacionInvalida {
 		boolean result = false;
 		for (Object correo : carpetaVacia.buscar(msg.obtenerVisualizacion())) {
+			if (correo instanceof Correo) {
+				result |= (((Correo) correo).obtenerVisualizacion() == msg.obtenerVisualizacion());
+			}
+		}
+		Assertions.assertThat(result).isFalse();
+	}
+
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos:  Valores frontera
+	 * </pre>
+	 * 
+	 * @param msg Mensaje para añadir
+	 * @throws OperacionInvalida Operación no soportada
+	 */
+	@Property
+	public void testExplorarCarpetaVacia(@ForAll("mensajeProvider") Mensaje msg) throws OperacionInvalida {
+		boolean result = false;
+		for (Object correo : carpetaVaciaLimitada.explorar()) {
 			if (correo instanceof Correo) {
 				result |= (((Correo) correo).obtenerVisualizacion() == msg.obtenerVisualizacion());
 			}
@@ -211,6 +250,26 @@ public class TestCarpetaLimitada {
 		msg2.establecerLeido(true);
 		carpetaImportantesLimitada.añadir(msg2);
 		Assertions.assertThat(carpetaImportantesLimitada.obtenerNoLeidos()).isEqualTo(1);
+	}
+
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Generación automática
+	 * </pre>
+	 * 
+	 * @param msg  Mensaje para añadir y marcar como leido
+	 * @param msg2 Mensaje para añadir
+	 * @throws OperacionInvalida Operación no soportada
+	 */
+	@Example
+	public void testEstablecerLeidoYObtenerNoLeidos(@ForAll("mensajeProvider") Mensaje msg,
+			@ForAll("mensajeProvider") Mensaje msg2) throws OperacionInvalida {
+		carpetaImportantesLimitada.añadir(msg);
+		carpetaImportantesLimitada.añadir(msg2);
+		carpetaImportantesLimitada.establecerLeido(true);
+		Assertions.assertThat(carpetaImportantesLimitada.obtenerNoLeidos()).isZero();
 	}
 
 	/**
@@ -307,7 +366,7 @@ public class TestCarpetaLimitada {
 	 * 
 	 * @throws OperacionInvalida Operación no soportada
 	 */
-	@Property
+	@Example
 	public void testObtenerVisualizaciónCarpetaVacia() throws OperacionInvalida {
 		Assertions.assertThat(carpetaImportantesLimitada.obtenerPreVisualizacion())
 				.isEqualTo(carpetaImportantesLimitada.obtenerVisualizacion());
@@ -323,7 +382,8 @@ public class TestCarpetaLimitada {
 	 * @throws OperacionInvalida Operación no soportada
 	 */
 	@Property
-	public void testEstablecerCarpetaLeida(@ForAll("carpetaProvider") Carpeta carpeta) throws OperacionInvalida {
+	public void testEstablecerCarpetaLeida(@ForAll("carpetaLimitadaProvider") CarpetaLimitada carpeta)
+			throws OperacionInvalida {
 		carpeta.establecerLeido(true);
 		Assertions.assertThat(carpeta.obtenerNoLeidos()).isZero();
 	}
@@ -335,12 +395,12 @@ public class TestCarpetaLimitada {
 	 * Selección de datos:  Generación automática
 	 * </pre>
 	 * 
-	 * @param carpeta Carpeta para obtener ruta
 	 * @throws OperacionInvalida Operación no soportada
 	 */
 	@Property
-	public void testObtenerRuta(@ForAll("carpetaProvider") Carpeta carpeta) throws OperacionInvalida {
-		Assertions.assertThat(carpeta.obtenerRuta()).isEqualTo(carpeta.obtenerVisualizacion());
+	public void testObtenerRuta() throws OperacionInvalida {
+		Assertions.assertThat(carpetaImportantesLimitada.obtenerRuta())
+				.isEqualTo(carpetaImportantesLimitada.obtenerVisualizacion());
 	}
 
 	/**
@@ -370,7 +430,7 @@ public class TestCarpetaLimitada {
 	 * @throws OperacionInvalida Operación no soportada
 	 */
 	@Property
-	public void testObtenerPadre(@ForAll("carpetaProvider") Carpeta carpeta) throws OperacionInvalida {
+	public void testObtenerPadre(@ForAll("carpetaLimitadaProvider") CarpetaLimitada carpeta) throws OperacionInvalida {
 		Assertions.assertThat(carpeta.obtenerPadre()).isNull();
 	}
 
@@ -385,7 +445,7 @@ public class TestCarpetaLimitada {
 	 * @throws OperacionInvalida Operación no soportada
 	 */
 	@Property
-	public void testObtenerHijo(@ForAll("carpetaProvider") Carpeta carpeta) throws OperacionInvalida {
+	public void testObtenerHijo(@ForAll("carpetaLimitadaProvider") CarpetaLimitada carpeta) throws OperacionInvalida {
 		Assertions.assertThat(carpeta.obtenerHijo(0)).isNotNull();
 	}
 
@@ -400,7 +460,8 @@ public class TestCarpetaLimitada {
 	 * @throws OperacionInvalida Operación no soportada
 	 */
 	@Property
-	public void testCambiarPadreYObtenerPadre(@ForAll("carpetaProvider") Carpeta carpeta) throws OperacionInvalida {
+	public void testCambiarPadreYObtenerPadre(@ForAll("carpetaLimitadaProvider") CarpetaLimitada carpeta)
+			throws OperacionInvalida {
 
 		carpeta.establecerPadre(carpetaImportantesLimitada);
 		Assertions.assertThat(carpeta.obtenerPadre()).isEqualTo(carpetaImportantesLimitada);

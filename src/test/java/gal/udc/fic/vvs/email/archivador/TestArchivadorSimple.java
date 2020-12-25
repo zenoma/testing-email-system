@@ -2,6 +2,9 @@ package gal.udc.fic.vvs.email.archivador;
 
 import static org.junit.Assert.assertEquals;
 
+import java.lang.reflect.Field;
+import java.util.Vector;
+
 import org.assertj.core.api.Assertions;
 
 import gal.udc.fic.vvs.email.archivo.Texto;
@@ -169,6 +172,35 @@ public class TestArchivadorSimple {
 	 * 
 	 * @param nombre Nombre dedl archivador
 	 * @param msg    Mensaje para almacecnar
+	 * @throws SecurityException
+	 * @throws NoSuchFieldException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 */
+	@Example
+	public void testAlmacenarCorreoYComprobar(@ForAll("stringProvider") String nombre,
+			@ForAll("mensajeProvider") Mensaje msg)
+			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+
+		Archivador archivadorSimple = new ArchivadorSimple(nombre, 10000);
+
+		Field privateField = archivadorSimple.getClass().getDeclaredField("_correos");
+		archivadorSimple.almacenarCorreo(msg);
+		privateField.setAccessible(true);
+
+		Vector fieldValue = (Vector) privateField.get(archivadorSimple);
+		Assertions.assertThat(fieldValue.contains(msg)).isTrue();
+	}
+
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Valores frontera y Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param nombre Nombre dedl archivador
+	 * @param msg    Mensaje para almacecnar
 	 */
 	@Property
 	public void testAlmacenarCorreoYBuscar(@ForAll("stringProvider") String nombre,
@@ -177,6 +209,22 @@ public class TestArchivadorSimple {
 		archivadorSimple.almacenarCorreo(msg);
 		Assertions.assertThat(archivadorSimple.obtenerEspacioDisponible())
 				.isEqualTo(archivadorSimple.obtenerEspacioTotal() - msg.obtenerTamaño());
+	}
+
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Valores frontera y Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param nombre Nombre dedl archivador
+	 * @param msg    Mensaje para almacecnar
+	 */
+	@Example
+	public void testNoAlmacenarCorreo(@ForAll("stringProvider") String nombre, @ForAll("mensajeProvider") Mensaje msg) {
+		Archivador archivadorSimple = new ArchivadorSimple(nombre, msg.obtenerTamaño());
+		Assertions.assertThat(archivadorSimple.almacenarCorreo(msg)).isFalse();
 	}
 
 }

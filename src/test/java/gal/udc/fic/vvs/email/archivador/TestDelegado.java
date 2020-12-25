@@ -1,5 +1,7 @@
 package gal.udc.fic.vvs.email.archivador;
 
+import java.lang.reflect.Field;
+
 import org.assertj.core.api.Assertions;
 
 import gal.udc.fic.vvs.email.archivo.Texto;
@@ -108,14 +110,91 @@ public class TestDelegado {
 	 * Selección de datos: Valores frontera y Generados automáticamente
 	 * </pre>
 	 * 
-	 * @param archivador Archivador para crear el delegado
+	 * @param msg Mensaje para añadir al delegado
 	 */
 	@Property
 	public void testAlmacenarCorreo(@ForAll("mensajeProvider") Mensaje msg) {
 		Archivador archivador = new ArchivadorSimple(Arbitraries.strings().alpha().sample(), 10000);
 		Delegado delegadoPequeño = new Delegado(archivador);
-		delegadoPequeño.establecerDelegado(archivador);
+		archivador.establecerDelegado(archivador);
 		Assertions.assertThat(delegadoPequeño.almacenarCorreo(msg)).isTrue();
+	}
+
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Valores frontera y Generados automáticamente
+	 * </pre>
+	 * 
+	 */
+	@Example
+	public void testObtenerDelegado() {
+		Archivador archivador = new ArchivadorSimple(Arbitraries.strings().alpha().sample(), 10000);
+		Delegado delegadoPequeño = new Delegado(archivador);
+		Assertions.assertThat(delegadoPequeño.obtenerDelegado()).isEqualTo(archivador.obtenerDelegado());
+	}
+
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Valores frontera y Generados automáticamente
+	 * </pre>
+	 * 
+	 */
+	@Example
+	public void testEstablecerDelegadoNotNull() {
+		Archivador archivador = new ArchivadorSimple(Arbitraries.strings().alpha().sample(), 10000);
+		Delegado delegadoPequeño = new Delegado(archivador);
+		delegadoPequeño.establecerDelegado(archivador);
+		Assertions.assertThat(delegadoPequeño.obtenerDelegado()).isNotNull();
+	}
+
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Valores frontera y Generados automáticamente
+	 * </pre>
+	 * 
+	 */
+	@Example
+	public void testEstablecerNuevoDelegado() {
+		Archivador archivador = new ArchivadorSimple(Arbitraries.strings().alpha().sample(), 10000);
+		Archivador nuevoArchivador = new ArchivadorSimple(Arbitraries.strings().alpha().sample(), 10000);
+		Delegado delegadoPequeño = new Delegado(archivador);
+		delegadoPequeño.establecerDelegado(nuevoArchivador);
+		Assertions.assertThat(nuevoArchivador.obtenerDelegado()).isEqualTo(archivador.obtenerDelegado());
+	}
+
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos: Valores frontera y Generados automáticamente
+	 * </pre>
+	 * 
+	 * @throws SecurityException
+	 * @throws NoSuchFieldException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * 
+	 */
+	@Example
+	public void testEstablecerNuevoDelegadoYObtener()
+			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		Archivador archivador = new ArchivadorSimple(Arbitraries.strings().alpha().sample(), 10000);
+		Archivador nuevoArchivador = new ArchivadorSimple(Arbitraries.strings().alpha().sample(), 10000);
+		Delegado delegadoPequeño = new Delegado(archivador);
+
+		Field privateField = DecoradorArchivador.class.getDeclaredField("_decorado");
+		privateField.setAccessible(true);
+
+		delegadoPequeño.establecerDelegado(nuevoArchivador);
+		Archivador fieldValue = (Archivador) privateField.get(delegadoPequeño);
+
+		Assertions.assertThat(fieldValue.obtenerDelegado()).isEqualTo(nuevoArchivador.obtenerDelegado());
 	}
 
 }

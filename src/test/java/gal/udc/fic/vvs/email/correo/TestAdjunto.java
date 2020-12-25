@@ -309,7 +309,7 @@ public class TestAdjunto {
 	 * @param adjunto Adjunto para obtener hijo
 	 */
 	@Example
-	public void testObtenerHijo(@ForAll("adjuntoProvider") Adjunto adjunto) throws OperacionInvalida {
+	public void testObtenerHijoError(@ForAll("adjuntoProvider") Adjunto adjunto) throws OperacionInvalida {
 		Assertions.assertThatThrownBy(() -> {
 			adjunto.obtenerHijo(0);
 		}).isInstanceOf(OperacionInvalida.class);

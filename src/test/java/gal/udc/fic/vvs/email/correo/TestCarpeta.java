@@ -79,6 +79,29 @@ public class TestCarpeta {
 	 * Selección de datos:  Generados automáticamente
 	 * </pre>
 	 * 
+	 * @param msg Mensaje para añadir
+	 * @throws OperacionInvalida Operación no soportada
+	 */
+	@Property
+	public void testAñadirCorreoYComprobarCambioPadre(@ForAll("mensajeProvider") Mensaje msg) throws OperacionInvalida {
+		boolean result = false;
+		carpetaImportantes.añadir(msg);
+
+		for (Object correo : carpetaImportantes.buscar(msg.obtenerVisualizacion())) {
+			if (correo instanceof Correo) {
+				result |= (((Correo) correo).obtenerPadre() == carpetaImportantes);
+			}
+		}
+		Assertions.assertThat(result).isTrue();
+	}
+
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Generados automáticamente
+	 * </pre>
+	 * 
 	 * @param msg Mensaje para mover
 	 * @throws OperacionInvalida Operación no soportada
 	 */
@@ -88,7 +111,7 @@ public class TestCarpeta {
 		carpetaImportantes.añadir(msg);
 		for (Object correo : carpetaImportantes.buscar(msg.obtenerVisualizacion())) {
 			if (correo instanceof Correo) {
-				result |= (((Correo) correo).obtenerVisualizacion() == msg.obtenerVisualizacion());
+				result |= (((Correo) correo).obtenerPadre() == carpetaImportantes);
 			}
 		}
 
@@ -96,7 +119,7 @@ public class TestCarpeta {
 			carpetaVacia.añadir(msg);
 			for (Object correo : carpetaVacia.buscar(msg.obtenerVisualizacion())) {
 				if (correo instanceof Correo) {
-					result |= (((Correo) correo).obtenerVisualizacion() == msg.obtenerVisualizacion());
+					result |= (((Correo) correo).obtenerPadre() == carpetaVacia);
 				}
 			}
 		}
@@ -115,15 +138,9 @@ public class TestCarpeta {
 	 */
 	@Property
 	public void testEliminarCorreoDeCarpeta(@ForAll("mensajeProvider") Mensaje msg) throws OperacionInvalida {
-		boolean result = false;
 		carpetaImportantes.añadir(msg);
 		carpetaImportantes.eliminar(msg);
-		for (Object correo : carpetaImportantes.buscar(msg.obtenerVisualizacion())) {
-			if (correo instanceof Correo) {
-				result |= (((Correo) correo).obtenerVisualizacion() == msg.obtenerVisualizacion());
-			}
-		}
-		Assertions.assertThat(result).isFalse();
+		Assertions.assertThat(msg.obtenerPadre()).isNull();
 	}
 
 	/**
@@ -179,6 +196,21 @@ public class TestCarpeta {
 		carpetaImportantes.añadir(mensaje);
 		carpetaImportantes.añadir(mensaje2);
 		Assertions.assertThat(carpetaImportantes.buscar("contenido").toArray()).hasSize(2);
+	}
+
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos:  Generados automáticamente
+	 * </pre>
+	 * 
+	 * @throws OperacionInvalida Operación no soportada
+	 */
+	@Example
+	public void testObtenerVisualización() throws OperacionInvalida {
+		Carpeta carpetaVacia = new Carpeta("name");
+		Assertions.assertThat(carpetaVacia.obtenerVisualizacion()).isEqualTo("name");
 	}
 
 	/**
