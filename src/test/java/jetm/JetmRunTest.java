@@ -70,7 +70,7 @@ public class JetmRunTest {
 			global.buscar("");
 			trabajoVVS.buscar("");
 
-			Assertions.assertThat(global.obtenerTamaño()).isNotZero();
+			Assertions.assertThat(monitor.isCollecting()).isTrue();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

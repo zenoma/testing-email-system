@@ -1,5 +1,8 @@
 package gal.udc.fic.vvs.email.archivador;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import org.assertj.core.api.Assertions;
 
 import gal.udc.fic.vvs.email.archivo.Texto;
@@ -47,15 +50,43 @@ public class TestLog {
 	 * @param nombre Nombre para crear Archivador
 	 * @param size   Tamaño para crear Archivador
 	 */
-	@Property(tries = 100)
-	public void testAlmacenarCorreoYObtenerEspacioDisponible(@ForAll("stringProvider") String nombre,
+	@Property
+	public void testAlmacenarCorreoEImprimirMensaje(@ForAll("stringProvider") String nombre,
 			@ForAll("integerProvider") Integer size) {
+
+		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(outContent));
+
 		Archivador archivador = new ArchivadorSimple(nombre, size);
 		Correo msg = new Mensaje(new Texto("a", "b"));
 		Log log = new Log(archivador);
 		log.almacenarCorreo(msg);
-		Assertions.assertThat(log.obtenerEspacioDisponible())
-				.isEqualTo(log.obtenerEspacioTotal() - msg.obtenerTamaño());
+		Assertions.assertThat(outContent.toString()).isEqualTo("Mensaxe de log\r\n");
+	}
+
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Positiva
+	 * Selección de datos: Valores frontera y Generados automáticamente
+	 * </pre>
+	 * 
+	 * @param nombre Nombre para crear Archivador
+	 * @param size   Tamaño para crear Archivador
+	 */
+	@Example
+	public void testAlmacenarCorreoYConfirmarInsertado(@ForAll("stringProvider") String nombre,
+			@ForAll("integerProvider") Integer size) {
+
+		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(outContent));
+
+		Archivador archivador = new ArchivadorSimple(nombre, size);
+		Correo msg = new Mensaje(new Texto("a", "b"));
+		Log log = new Log(archivador);
+		log.almacenarCorreo(msg);
+		Assertions.assertThat(log.obtenerEspacioTotal() - msg.obtenerTamaño())
+				.isEqualTo(log.obtenerEspacioDisponible());
 	}
 
 	/**

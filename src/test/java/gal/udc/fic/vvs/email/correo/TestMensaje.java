@@ -160,4 +160,35 @@ public class TestMensaje {
 		Assertions.assertThat(mensaje.buscar("image").toArray()).isEmpty();
 	}
 
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos:  Generación automática
+	 * </pre>
+	 * 
+	 * @param mensaje Mensaje para buscar
+	 */
+	@Example
+	public void testObtenerRuta(@ForAll("mensajeProvider") Mensaje mensaje) {
+		Assertions.assertThat(mensaje.obtenerRuta()).isEqualTo(mensaje.obtenerPreVisualizacion());
+	}
+
+	/**
+	 * <pre>
+	 * Nivel de prueba: Unidad 
+	 * Categoría: Dinámicas, Caja Blanca, Negativa
+	 * Selección de datos:  Generación automática
+	 * </pre>
+	 * 
+	 * @param mensaje Mensaje para buscar
+	 */
+	@Example
+	public void testObtenerRutaConPadre(@ForAll("mensajeProvider") Mensaje mensaje,
+			@ForAll("mensajeProvider") Mensaje padre) {
+		mensaje.establecerPadre(padre);
+		Assertions.assertThat(mensaje.obtenerRuta())
+				.isEqualTo(padre.obtenerPreVisualizacion() + " > " + mensaje.obtenerPreVisualizacion());
+	}
+
 }
