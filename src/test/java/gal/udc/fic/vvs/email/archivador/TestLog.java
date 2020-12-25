@@ -61,7 +61,7 @@ public class TestLog {
 		Correo msg = new Mensaje(new Texto("a", "b"));
 		Log log = new Log(archivador);
 		log.almacenarCorreo(msg);
-		Assertions.assertThat(outContent).hasToString("Mensaxe de log\r\n");
+		Assertions.assertThat(outContent.toString().trim()).hasToString("Mensaxe de log");
 	}
 
 	/**
