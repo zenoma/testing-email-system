@@ -6,7 +6,7 @@
 
 	<groupId>gal.udc.fic.vvs.email</groupId>
 	<artifactId>FICmail</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.1</version>
 
 	<name>FICmail</name>
 	<!-- FIXME change it to the project's website -->
